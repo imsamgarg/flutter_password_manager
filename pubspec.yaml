@@ -9,6 +9,8 @@ dependencies:
   get: 4.3.4
   velocity_x: 3.3.0
   google_fonts: 2.1.0
+  flutter_spinkit: 5.0.0
+  flutter_secure_storage: 4.2.1
   custom_utils: 
     git: https://github.com/imsmilegarg/custom_utils.git
   flutter: 
