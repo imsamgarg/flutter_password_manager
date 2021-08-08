@@ -1,0 +1,24 @@
+name: password_manager
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies: 
+  get: 4.3.4
+  velocity_x: 3.3.0
+  google_fonts: 2.1.0
+  custom_utils: 
+    git: https://github.com/imsmilegarg/custom_utils.git
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  lints: 1.0.1
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
