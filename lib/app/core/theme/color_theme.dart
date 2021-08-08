@@ -1,6 +1,6 @@
 import 'package:flutter/rendering.dart';
 
-class CustomColors {
+class ColorTheme {
   static const Color swatch1 = Color(0xff040405);
   static const Color swatch2 = Color(0xff1805d7);
   static const Color swatch3 = Color(0xff1304a3);
@@ -11,7 +11,7 @@ class CustomColors {
   static const Color swatch8 = Color(0xff3f58c4);
 
   static const Color accentColor = swatch7;
-  static const Color primaryColor = swatch3;
+  static const Color primaryColor = swatch2;
   static const Color backgroungColor = swatch1;
 
   static int primaryValue = primaryColor.value;
