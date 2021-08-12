@@ -38,12 +38,13 @@ class AddPasswordController extends GetxController {
   void onAddPassword() {}
 
   void generatePassword() {
-    int passLength = 11;
+    int passLength = 15;
     const String chars =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,./;:?><{}[]()-=_+~`!@#%^&*';
     // const String alphabetsC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     // const String numbers = '0123456789';
     // const String specialChars = ',./;:?><{}[]()-=_+~`!@#%^&*';
+
     String password = "";
     // StringBuffer buf/
     final randomiser = Random();

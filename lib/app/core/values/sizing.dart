@@ -3,4 +3,6 @@ class Sizing {
   static const radiusM = 15.0;
   static const radiusL = 20.0;
   static const sidesGap = 18.0;
+
+  static const double buttonPaddingVer = 15;
 }

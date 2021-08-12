@@ -1,4 +1,5 @@
 import 'package:custom_utils/spacing_utils.dart';
+import 'package:custom_utils/validator.dart' as V;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:password_manager/app/core/theme/color_theme.dart';
@@ -69,18 +70,19 @@ class NotesField extends GetView<AddPasswordController> {
 class PasswordField extends GetView<AddPasswordController> {
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller.passController,
-      style: TextStyle(
-        color: ColorTheme.inputColor,
-      ),
-      obscureText: controller.isPasswordHidden,
-      decoration: InputDecoration(
-        labelText: "Password",
-        suffix: InkWell(
-          onTap: controller.togglePassHide,
-          child: Obx(
-            () => Icon(
+    return Obx(
+      () => TextFormField(
+        controller: controller.passController,
+        style: TextStyle(
+          color: ColorTheme.inputColor,
+        ),
+        // validator: Validator.rangeValidator,
+        obscureText: controller.isPasswordHidden,
+        decoration: InputDecoration(
+          labelText: "Password",
+          suffix: InkWell(
+            onTap: controller.togglePassHide,
+            child: Icon(
               controller.isPasswordHidden
                   ? Icons.visibility
                   : Icons.visibility_off_rounded,
@@ -92,7 +94,7 @@ class PasswordField extends GetView<AddPasswordController> {
   }
 }
 
-class EmailField extends GetView<AddPasswordController> {
+class EmailField extends GetView<AddPasswordController> with V.Validator {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -100,6 +102,7 @@ class EmailField extends GetView<AddPasswordController> {
       style: TextStyle(
         color: ColorTheme.inputColor,
       ),
+      validator: emailValidator,
       decoration: InputDecoration(
         labelText: "Email Address",
         labelStyle: TextStyle(
@@ -120,7 +123,7 @@ class EmailField extends GetView<AddPasswordController> {
   }
 }
 
-class WebsiteField extends GetView<AddPasswordController> {
+class WebsiteField extends GetView<AddPasswordController> with V.Validator {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -128,6 +131,7 @@ class WebsiteField extends GetView<AddPasswordController> {
       style: TextStyle(
         color: ColorTheme.inputColor,
       ),
+      validator: requiredValidator,
       decoration: InputDecoration(
         labelText: "Website",
         suffix: InkWell(

@@ -62,7 +62,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "8c57a317680be98cb10be5c1ff52d7957e03151d"
+      resolved-ref: fd66ff8e21e695a31c6199e34738016ec2136589
       url: "https://github.com/imsmilegarg/custom_utils.git"
     source: git
     version: "0.0.1"

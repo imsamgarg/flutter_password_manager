@@ -26,18 +26,19 @@ ThemeData dartTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: ColorTheme.backgroungColor,
   ),
+  buttonColor: ColorTheme.buttonColor,
   canvasColor: ColorTheme.backgroungColor,
   inputDecorationTheme: InputDecorationTheme(
     enabledBorder: UnderlineInputBorder(
       borderSide: BorderSide(
-        color: ColorTheme.primaryColor,
-        width: 1,
+        color: ColorTheme.inputBorderColor,
+        width: 2,
       ),
     ),
     floatingLabelBehavior: FloatingLabelBehavior.always,
     focusedBorder: UnderlineInputBorder(
       borderSide: BorderSide(
-        color: ColorTheme.primaryColor,
+        color: ColorTheme.inputBorderFocusedColor,
         width: 2,
       ),
     ),
@@ -48,7 +49,7 @@ ThemeData dartTheme = ThemeData(
     ),
     errorBorder: UnderlineInputBorder(
       borderSide: BorderSide(
-        color: ColorTheme.redColor,
+        color: ColorTheme.inputBorderErrorColor,
         width: 1,
       ),
     ),

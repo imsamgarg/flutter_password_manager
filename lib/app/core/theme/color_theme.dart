@@ -31,7 +31,11 @@ class ColorTheme {
   };
 
   static const Color redColor = Colors.red;
-  static const Color inputBorderColor = redColor;
+  static const Color inputBorderColor = Color(0xFF263238);
+  static const Color inputBorderFocusedColor = Color(0xFF698999);
+  static const Color inputBorderErrorColor = redColor;
 
   static const Color inputColor = Color(0xFFEEEEEE);
+
+  static const Color buttonColor = Color(0xFF1A2327);
 }
