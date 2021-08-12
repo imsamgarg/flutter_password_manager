@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:password_manager/app/modules/add_password/bindings/add_password_binding.dart';
+import 'package:password_manager/app/modules/add_password/views/add_password_view.dart';
 import 'package:password_manager/app/modules/home/bindings/home_binding.dart';
 import 'package:password_manager/app/modules/home/views/home_view.dart';
 import 'package:password_manager/app/modules/login/bindings/login_binding.dart';
@@ -14,7 +16,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.STARTUP;
+  static const INITIAL = Routes.HOME;
 
   static final routes = [
     GetPage(
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.REGISTER,
       page: () => RegisterView(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_PASSWORD,
+      page: () => AddPasswordView(),
+      binding: AddPasswordBinding(),
     ),
   ];
 }

@@ -1,20 +1,11 @@
 import 'package:get/get.dart';
 
+import 'package:password_manager/app/routes/app_pages.dart';
+
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void onAddTap() {
+    Get.toNamed(Routes.ADD_PASSWORD);
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  void onSettingsTap() {}
 }

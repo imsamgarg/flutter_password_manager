@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ColorTheme {
   static const Color swatch1 = Color(0xff040405);
-  static const Color swatch2 = Color(0xff1805d7);
+  static const Color swatch2 = Color(0xFF2962FF);
   static const Color swatch3 = Color(0xff1304a3);
   static const Color swatch4 = Color(0xff0c0362);
   static const Color swatch5 = Color(0xff4c4946);
@@ -28,4 +29,9 @@ class ColorTheme {
     800: Color(0xFF06003B),
     900: Color(0xFF040029),
   };
+
+  static const Color redColor = Colors.red;
+  static const Color inputBorderColor = redColor;
+
+  static const Color inputColor = Color(0xFFEEEEEE);
 }

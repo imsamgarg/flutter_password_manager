@@ -1,10 +1,12 @@
-import 'package:custom_utils/spacing_utils.dart';
 import 'package:flutter/material.dart';
+
+import 'package:custom_utils/spacing_utils.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/core/theme/color_theme.dart';
 import 'package:password_manager/app/interfaces/auth_interface.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class NumberWidget extends StatelessWidget {
   final Widget? child;
@@ -25,9 +27,9 @@ class NumberWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: color ?? ColorTheme.swatch5.withOpacity(0.2),
-      borderRadius: BorderTheme.borderRadius,
+      borderRadius: BorderTheme.borderRadL,
       child: InkWell(
-        borderRadius: BorderTheme.borderRadius,
+        borderRadius: BorderTheme.borderRadL,
         onTap: onTap,
         onLongPress: onLongPress,
         child: Center(

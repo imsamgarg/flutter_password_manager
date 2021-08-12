@@ -1,7 +1,9 @@
-import 'package:custom_utils/column_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:password_manager/app/global_widgets/auth_views_widgets.dart';
+
+import 'package:custom_utils/column_utils.dart';
 import 'package:get/get.dart';
+
+import 'package:password_manager/app/global_widgets/auth_views_widgets.dart';
 
 import '../controllers/login_controller.dart';
 

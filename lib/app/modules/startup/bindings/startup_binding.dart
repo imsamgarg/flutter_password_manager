@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:password_manager/app/data/services/secure_key_service.dart';
 
 import '../controllers/startup_controller.dart';
