@@ -40,6 +40,17 @@ class AddPasswordView extends GetView<AddPasswordController> {
               ),
               verSpacing20,
               NotesField(),
+              verSpacing20,
+              GetBuilder(
+                init: controller,
+                builder: (AddPasswordController c) {
+                  return CustomButton(
+                    "Save Password",
+                    isLoading: c.loading,
+                    onTap: c.savePassword,
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -56,6 +67,7 @@ class NotesField extends GetView<AddPasswordController> {
       style: TextStyle(
         color: ColorTheme.inputColor,
       ),
+      maxLines: 4,
       decoration: InputDecoration(
         labelText: "Notes",
         suffix: InkWell(
@@ -67,7 +79,7 @@ class NotesField extends GetView<AddPasswordController> {
   }
 }
 
-class PasswordField extends GetView<AddPasswordController> {
+class PasswordField extends GetView<AddPasswordController> with V.Validator {
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -76,7 +88,7 @@ class PasswordField extends GetView<AddPasswordController> {
         style: TextStyle(
           color: ColorTheme.inputColor,
         ),
-        // validator: Validator.rangeValidator,
+        validator: (v) => lengthValidtor(v, 8),
         obscureText: controller.isPasswordHidden,
         decoration: InputDecoration(
           labelText: "Password",

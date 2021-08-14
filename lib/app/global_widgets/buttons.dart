@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/core/values/sizing.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -9,12 +10,13 @@ class CustomButton extends StatelessWidget {
     this.onTap,
     this.onLongPress,
     this.padding,
+    this.isLoading,
   });
-  //  : super(key: key);
   final VoidCallback? onTap;
   final EdgeInsets? padding;
   final VoidCallback? onLongPress;
   final String text;
+  final bool? isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,11 @@ class CustomButton extends StatelessWidget {
                 vertical: Sizing.buttonPaddingVer,
               ),
           child: Center(
-            child: text.text.make(),
+            child: (isLoading ?? false)
+                ? SpinKitThreeBounce(
+                    color: Vx.white,
+                  )
+                : text.text.make(),
           ),
         ),
       ),

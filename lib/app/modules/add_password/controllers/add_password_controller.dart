@@ -15,6 +15,7 @@ class AddPasswordController extends GetxController {
 
   bool get isPasswordHidden => this._isPasswordHidden.value;
 
+  bool loading = false;
   set isPasswordHidden(bool value) {
     this._isPasswordHidden.value = value;
   }
@@ -35,8 +36,6 @@ class AddPasswordController extends GetxController {
     websiteController.clear();
   }
 
-  void onAddPassword() {}
-
   void generatePassword() {
     int passLength = 15;
     const String chars =
@@ -52,5 +51,16 @@ class AddPasswordController extends GetxController {
       password += chars[randomiser.nextInt(chars.length - 1)];
     }
     passController.text = password;
+  }
+
+  void savePassword() {
+    try {
+      loading = true;
+      update();
+
+      //TODOO:
+    } on Exception catch (_) {}
+    loading = false;
+    update();
   }
 }
