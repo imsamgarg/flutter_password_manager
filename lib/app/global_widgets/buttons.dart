@@ -39,6 +39,7 @@ class CustomButton extends StatelessWidget {
           child: Center(
             child: (isLoading ?? false)
                 ? SpinKitThreeBounce(
+                    size: 18,
                     color: Vx.white,
                   )
                 : text.text.make(),

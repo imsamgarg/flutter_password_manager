@@ -2,13 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/state_manager.dart';
 
 class SecureKeyService extends GetxService {
-  late FlutterSecureStorage _secureStorage;
-
-  @override
-  void onInit() {
-    _secureStorage = FlutterSecureStorage();
-    super.onInit();
-  }
+  late FlutterSecureStorage _secureStorage = FlutterSecureStorage();
 
   Future<bool> hasKey(String key) async {
     return await _secureStorage.containsKey(key: key);
@@ -29,6 +23,14 @@ class SecureKeyService extends GetxService {
       return (_value == value);
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<String> getKey(String key) async {
+    try {
+      return await _secureStorage.read(key: key) ?? "";
+    } catch (_) {
+      return "";
     }
   }
 }

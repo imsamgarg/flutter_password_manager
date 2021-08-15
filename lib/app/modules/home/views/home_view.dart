@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'package:password_manager/app/global_widgets/app_bar.dart';
 

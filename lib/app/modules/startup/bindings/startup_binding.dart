@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:password_manager/app/data/services/database_service/database_service.dart';
 
 import 'package:password_manager/app/data/services/secure_key_service.dart';
 
@@ -9,6 +10,9 @@ class StartupBinding extends Bindings {
   void dependencies() {
     Get.put<SecureKeyService>(
       SecureKeyService(),
+    );
+    Get.put<DatabaseService>(
+      DatabaseService(),
     );
     Get.put<StartupController>(
       StartupController(),

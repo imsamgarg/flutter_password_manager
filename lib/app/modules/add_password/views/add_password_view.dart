@@ -68,6 +68,7 @@ class NotesField extends GetView<AddPasswordController> {
         color: ColorTheme.inputColor,
       ),
       maxLines: 4,
+      minLines: 1,
       decoration: InputDecoration(
         labelText: "Notes",
         suffix: InkWell(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ColorTheme {
   static const Color swatch1 = Color(0xff040405);
@@ -38,4 +40,20 @@ class ColorTheme {
   static const Color inputColor = Color(0xFFEEEEEE);
 
   static const Color buttonColor = Color(0xFF1A2327);
+
+  static const Color successColorDark = Colors.green;
+  static const Color successColorLight = Colors.green;
+
+  static const Color errorColorDark = Vx.red500;
+  static const Color errorColorLight = Vx.red700;
+
+  static Color get successColor {
+    bool _isDark = Get.isDarkMode;
+    return _isDark ? successColorDark : successColorLight;
+  }
+
+  static Color get errorColor {
+    bool _isDark = Get.isDarkMode;
+    return _isDark ? errorColorDark : errorColorLight;
+  }
 }
