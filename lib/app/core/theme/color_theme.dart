@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ColorTheme {
-  static const Color swatch1 = Color(0xff040405);
+  static const Color swatch1 = Color(0xFF171718);
   static const Color swatch2 = Color(0xFF2962FF);
   static const Color swatch3 = Color(0xff1304a3);
   static const Color swatch4 = Color(0xff0c0362);

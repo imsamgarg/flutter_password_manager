@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/core/theme/color_theme.dart';
+import 'package:password_manager/app/core/values/assets.dart';
 import 'package:password_manager/app/core/values/sizing.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -49,6 +50,7 @@ class HomeView extends GetView<HomeController> {
                           child: ListView.builder(
                             itemCount: c.passwords.length,
                             itemBuilder: (_, i) {
+                              // DismmisableTile(c.passwords[i], i);
                               if (c.passwords[i].isVisible) {
                                 return PasswordTile(c.passwords[i], i);
                               } else {
@@ -70,6 +72,17 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
+//
+// class DismmisableTile extends StatelessWidget {
+//   DismmisableTile(Password password, int i);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Dismissible(
+//       key
+//     );
+//   }
+// }
 
 class SearchWidget extends GetView<HomeController> {
   @override
@@ -78,6 +91,8 @@ class SearchWidget extends GetView<HomeController> {
       onChanged: controller.searchText,
       focusNode: controller.focusNode,
       decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         filled: true,
         fillColor: ColorTheme.inputBorderColor.withOpacity(0.2),
         enabledBorder: OutlineInputBorder(
@@ -86,7 +101,7 @@ class SearchWidget extends GetView<HomeController> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderTheme.borderRadS,
         ),
-        suffixIcon: Icon(
+        prefixIcon: Icon(
           Icons.search,
           color: ColorTheme.inputBorderFocusedColor,
         ),
@@ -141,9 +156,23 @@ class WebsiteImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final type = r ?? "";
+    final h = 50.0, w = 50.0;
+    if (type.isNotEmpty && AssetsLogos.isLogoExist(type))
+      return ClipRRect(
+        borderRadius: BorderTheme.borderRadM,
+        child: SizedBox(
+          height: h,
+          width: w,
+          child: Image.asset(
+            AssetsLogos.logos[type]!.path,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
     return SizedBox(
-      height: 50,
-      width: 50,
+      height: h,
+      width: w,
       child: Center(
         child: website![0].text.size(22).bold.capitalize.make(),
       )

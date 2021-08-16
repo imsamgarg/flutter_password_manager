@@ -11,7 +11,7 @@ class AssetsLogos {
 
   static const logoList = [
     const Asset('Amazon', amazonPNG),
-    const Asset('Faceboot', fbPNG),
+    const Asset('Facebook', fbPNG),
     const Asset('Flipkart', flipkartJPEG),
     const Asset('Google', googlePNG),
     const Asset('Instagram', instaJPEG),
@@ -22,18 +22,18 @@ class AssetsLogos {
   ];
 
   static const logos = {
-    'amazon': Asset('amazon', amazonPNG),
-    'fb': Asset('fb', fbPNG),
-    'flipkart': Asset('flipkart', flipkartJPEG),
-    'google': Asset('google', googlePNG),
-    'insta': Asset('insta', instaJPEG),
-    'microsoft': Asset('microsoft', microsoftPNG),
-    'qoura': Asset('qoura', qouraPNG),
-    'snapchat': Asset('snapchat', snapchatPNG),
-    'twitter': Asset('twitter', twitterPNG),
+    'Amazon': Asset('amazon', amazonPNG),
+    'Facebook': Asset('fb', fbPNG),
+    'Flipkart': Asset('flipkart', flipkartJPEG),
+    'Google': Asset('google', googlePNG),
+    'Instagram': Asset('insta', instaJPEG),
+    'Microsoft': Asset('microsoft', microsoftPNG),
+    'Qoura': Asset('qoura', qouraPNG),
+    'Snapchat': Asset('snapchat', snapchatPNG),
+    'Twitter': Asset('twitter', twitterPNG),
   };
 
-  bool isLogoExist(String image) {
+  static bool isLogoExist(String image) {
     return logos.containsKey(image);
   }
 }
