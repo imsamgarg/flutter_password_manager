@@ -5,12 +5,14 @@ class Password {
   List<String>? tagsArray;
   String? password;
   String? r;
+  late bool isVisible;
   String? tags;
   int? createdOn;
   int? modifiedOn;
 
   Password(
-      {this.website,
+      {this.isVisible = true,
+      this.website,
       this.email,
       this.notes,
       this.password,
@@ -25,6 +27,7 @@ class Password {
     notes = json['notes'];
     password = json['password'];
     r = json['r'];
+    isVisible = true;
     tags = json['tags'];
     if (tags != null && tags!.isNotEmpty) {
       tagsArray = tags!.split(',');

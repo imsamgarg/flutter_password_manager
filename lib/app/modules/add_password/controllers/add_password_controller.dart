@@ -4,6 +4,7 @@ import 'package:custom_utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:password_manager/app/core/utils/helpers.dart';
+import 'package:password_manager/app/core/values/assets.dart';
 import 'package:password_manager/app/core/values/strings.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
 import 'package:password_manager/app/data/services/database_service/database_service.dart';
@@ -13,6 +14,7 @@ import 'package:password_manager/app/data/services/secure_key_service.dart';
 class AddPasswordController extends GetxController {
   static const _errorMessage = "Failed To Save Password";
   static const _successMessage = "Password Saved Successfully!!";
+  static const _alreadyExistMessage = "This Website Mail Combo Already Exists!";
 
   late GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -22,6 +24,14 @@ class AddPasswordController extends GetxController {
   late TextEditingController notesController = TextEditingController();
 
   final _isPasswordHidden = true.obs;
+
+  final Rx<int?> _selectedIndex = Rx<int?>(null);
+
+  int? get selectedIndex => _selectedIndex.value;
+
+  void changeImage(int i) {
+    _selectedIndex.value = i;
+  }
 
   bool get isPasswordHidden => this._isPasswordHidden.value;
 
@@ -65,10 +75,25 @@ class AddPasswordController extends GetxController {
       update();
       customLog("--Saving Password--");
 
+      //cred
+      final mail = emailController.text;
+      final website = websiteController.text;
+      final pass = passController.text;
+      final notes = notesController.text;
+
       //Services
       final _dbService = Get.find<DatabaseService>();
       final _encryService = Get.find<EncryptionService>();
       final _secureKeyService = Get.find<SecureKeyService>();
+
+      //check if website email combo already exist
+      bool exists = await _dbService.connection.checkIfExists(website, mail);
+
+      if (exists) {
+        errorSnackbar(_alreadyExistMessage, 8);
+        stopLoading();
+        return;
+      }
 
       //Current Time
       int _time = DateTime.now().millisecondsSinceEpoch;
@@ -79,20 +104,26 @@ class AddPasswordController extends GetxController {
 
       //Encrypt Password
       final _encryptedPass = _encryService.encryptText(
-        passController.text,
+        pass,
         _key,
       );
+
+      //app icon
+      var type;
+      if (selectedIndex != null) {
+        type = AssetsLogos.logoList[selectedIndex!].name;
+      }
 
       //Saving Details To Database
       Password password = Password(
         createdOn: _time,
         modifiedOn: _time,
-        email: emailController.text,
-        notes: notesController.text,
+        email: mail,
+        notes: notes,
         password: _encryptedPass,
-        r: "G",
-        tags: "g",
-        website: websiteController.text,
+        r: type ?? "",
+        tags: "",
+        website: website,
       );
       final _res = await _dbService.connection.savePass(password);
       customLog(_res, name: "result");
@@ -100,7 +131,7 @@ class AddPasswordController extends GetxController {
       stopLoading();
 
       //pop current screen
-      Get.back();
+      Get.back(result: password);
       successSnackbar(_successMessage);
     } on Exception catch (e, s) {
       customLog("Error", error: e, stackTrace: s);

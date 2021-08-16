@@ -62,3 +62,12 @@ class BorderTheme {
   static const borderRadS = BorderRadius.all(Radius.circular(Sizing.radiusS));
   static const cardRadius = BorderRadius.all(Radius.circular(Sizing.radiusL));
 }
+
+class PaddingTheme {
+  static const sidePaddingS =
+      EdgeInsets.symmetric(horizontal: Sizing.sidesGapS);
+  static const sidePaddingL =
+      EdgeInsets.symmetric(horizontal: Sizing.sidesGapL);
+  static const sidePaddingM =
+      EdgeInsets.symmetric(horizontal: Sizing.sidesGapM);
+}

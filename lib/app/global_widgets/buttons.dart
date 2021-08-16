@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
         // highlightColor: Colors.blueGrey[700],
         // splashColor: Colors.blueGrey[300],
         splashFactory: InkSplash.splashFactory,
-        onLongPress: onLongPress,
+        onLongPress: (isLoading ?? false) ? () {} : onLongPress,
         child: Padding(
           padding: padding ??
               const EdgeInsets.symmetric(

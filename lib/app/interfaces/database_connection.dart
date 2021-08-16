@@ -9,4 +9,6 @@ abstract class DatabaseConnection {
   Future<Password> savePass(Password password);
   Future<void> deletePass(Password password);
   Future<Password> updatePass(Password password);
+
+  Future<bool> checkIfExists(String website, String mail);
 }

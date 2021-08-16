@@ -5,14 +5,6 @@ import 'package:password_manager/app/core/values/sizing.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 void successSnackbar(String message, [int sec = 4]) {
-  // Get.rawSnackbar(
-  //   message: message,
-  //   icon: Icon(Icons.check, color: Vx.white),
-  //   duration: Duration(seconds: sec),
-  //   backgroundColor: ColorTheme.successColor,
-  //   overlayColor: Vx.white,
-  //   borderRadius: Sizing.radiusM,
-  // );
   return customSnackBar(
     message,
     Icon(Icons.check, color: Vx.white),
@@ -21,14 +13,6 @@ void successSnackbar(String message, [int sec = 4]) {
 }
 
 void errorSnackbar(String message, [int sec = 4]) {
-  // Get.rawSnackbar(
-  //   message: message,
-  //   icon: Icon(Icons.cancel_rounded, color: Vx.white),
-  //   duration: Duration(seconds: sec),
-  //   backgroundColor: ColorTheme.errorColor,
-  //   overlayColor: Vx.white,
-  //   borderRadius: Sizing.radiusM,
-  // );
   return customSnackBar(
     message,
     Icon(Icons.cancel_rounded, color: Vx.white),
@@ -45,10 +29,11 @@ void customSnackBar(
 ]) {
   Get.rawSnackbar(
     message: message,
+    shouldIconPulse: false,
     icon: icon,
     duration: Duration(seconds: sec),
     backgroundColor: bgColor,
     overlayColor: fgColor,
-    borderRadius: Sizing.radiusM,
+    borderRadius: Sizing.radiusS,
   );
 }

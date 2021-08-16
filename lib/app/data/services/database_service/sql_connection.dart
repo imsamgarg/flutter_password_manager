@@ -1,4 +1,5 @@
 import 'package:password_manager/app/core/values/queries.dart';
+import 'package:password_manager/app/core/values/strings.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
 import 'package:password_manager/app/interfaces/database_connection.dart';
 import 'package:sqflite/sqflite.dart';
@@ -68,5 +69,18 @@ class SqlConnection implements DatabaseConnection {
   Future<Password> updatePass(Password password) {
     // TODO: implement updatePass
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> checkIfExists(String website, String mail) async {
+    const String query =
+        "${PassFields.website} = ? COLLATE NOCASE AND ${PassFields.email} = ? COLLATE NOCASE";
+    final _res = await _database.query(
+      passTableName,
+      columns: [PassFields.email],
+      where: query,
+      whereArgs: [website, mail],
+    );
+    return _res.isNotEmpty;
   }
 }
