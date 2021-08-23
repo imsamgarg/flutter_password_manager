@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/core/theme/color_theme.dart';
 import 'package:password_manager/app/core/values/assets.dart';
 import 'package:password_manager/app/core/values/sizing.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'package:password_manager/app/global_widgets/app_bar.dart';
 import 'package:password_manager/app/global_widgets/widgets.dart';
 
@@ -113,14 +114,10 @@ class PasswordTile extends GetView<HomeController> {
       subtitle: (password.email ?? " --- ").text.sm.make(),
       leading: Padding(
         padding: const EdgeInsets.only(left: 8.0),
-        // padding: const EdgeInsets.all(8.0),
         child: WebsiteImage(password.website, password.r),
       ),
       onTap: () => controller.onTilePress(index),
-      // contentPadding: PaddingTheme.sidePaddingS,
-      // minVerticalPadding: 2,
       contentPadding: EdgeInsets.zero,
-      // tileColor: ColorTheme.accentColor,
       trailing: SizedBox(
         height: 50,
         width: 50,

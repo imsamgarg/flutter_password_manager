@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import 'package:password_manager/app/core/values/sizing.dart';
-
-import 'package:velocity_x/velocity_x.dart';
 
 import 'color_theme.dart';
 

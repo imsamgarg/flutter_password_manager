@@ -1,13 +1,16 @@
-import 'package:custom_utils/spacing_utils.dart';
 import 'package:flutter/material.dart';
+
+import 'package:custom_utils/spacing_utils.dart';
 import 'package:get/get.dart';
-import 'package:password_manager/app/global_widgets/widgets.dart';
-import 'package:password_manager/app/modules/add_password/local_widgets/input_fields.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:password_manager/app/core/values/sizing.dart';
 import 'package:password_manager/app/global_widgets/app_bar.dart';
 import 'package:password_manager/app/global_widgets/buttons.dart';
+import 'package:password_manager/app/global_widgets/widgets.dart';
+import 'package:password_manager/app/modules/add_password/local_widgets/input_fields.dart';
+
 import '../controllers/add_password_controller.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class AddPasswordView extends GetView<AddPasswordController> {
   final heading = "Add Password";

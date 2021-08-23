@@ -1,5 +1,6 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:get/get.dart';
+
 import 'package:password_manager/app/core/values/values.dart';
 
 class EncryptionService extends GetxService {

@@ -1,8 +1,10 @@
 import 'dart:math';
 
-import 'package:custom_utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'package:custom_utils/log_utils.dart';
 import 'package:get/get.dart';
+
 import 'package:password_manager/app/core/utils/helpers.dart';
 import 'package:password_manager/app/core/values/assets.dart';
 import 'package:password_manager/app/core/values/strings.dart';

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/core/values/sizing.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+
+import 'package:custom_utils/validator.dart' as V;
 import 'package:get/get.dart';
+
 import 'package:password_manager/app/core/theme/color_theme.dart';
 import 'package:password_manager/app/modules/add_password/controllers/add_password_controller.dart';
-import 'package:custom_utils/validator.dart' as V;
 
 class NotesField extends GetView<AddPasswordController> {
   @override

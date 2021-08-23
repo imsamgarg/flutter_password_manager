@@ -1,8 +1,11 @@
-import 'package:custom_utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:custom_utils/log_utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/core/theme/color_theme.dart';
 import 'package:password_manager/app/core/utils/helpers.dart';
@@ -10,7 +13,6 @@ import 'package:password_manager/app/data/models/password_model.dart';
 import 'package:password_manager/app/data/services/database_service/database_service.dart';
 import 'package:password_manager/app/global_widgets/buttons.dart';
 import 'package:password_manager/app/modules/home/controllers/home_controller.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class PasswordInfoController extends GetxController {
   late Password password;

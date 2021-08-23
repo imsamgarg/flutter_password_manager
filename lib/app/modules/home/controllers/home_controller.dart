@@ -1,7 +1,9 @@
-import 'package:custom_utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+
+import 'package:custom_utils/log_utils.dart';
 import 'package:get/get.dart';
+
 import 'package:password_manager/app/core/utils/helpers.dart';
 import 'package:password_manager/app/core/values/strings.dart';
 import 'package:password_manager/app/data/models/password_model.dart';

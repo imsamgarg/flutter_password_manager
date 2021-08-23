@@ -1,5 +1,6 @@
-// ${PassFields.id} INTEGER PRIMARY KEY,
 import 'package:password_manager/app/core/values/strings.dart';
+
+// ${PassFields.id} INTEGER PRIMARY KEY,
 
 abstract class Queries {
   ///queries

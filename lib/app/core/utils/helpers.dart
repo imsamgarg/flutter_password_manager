@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:password_manager/app/core/theme/color_theme.dart';
 import 'package:password_manager/app/core/values/sizing.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 void successSnackbar(String message, [int sec = 4]) {
   return customSnackBar(
