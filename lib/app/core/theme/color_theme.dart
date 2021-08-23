@@ -47,6 +47,8 @@ class ColorTheme {
   static const Color errorColorDark = Vx.red500;
   static const Color errorColorLight = Vx.red700;
 
+  static const Color inputBgColor = Color(0xFF1A2327);
+
   static Color get successColor {
     bool _isDark = Get.isDarkMode;
     return _isDark ? successColorDark : successColorLight;

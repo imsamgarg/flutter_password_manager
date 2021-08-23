@@ -25,7 +25,7 @@ class NumberWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: color ?? ColorTheme.swatch5.withOpacity(0.2),
+      color: color ?? ColorTheme.inputBgColor,
       borderRadius: BorderTheme.borderRadL,
       child: InkWell(
         borderRadius: BorderTheme.borderRadL,
@@ -111,7 +111,7 @@ class BottomRow extends StatelessWidget {
               Icons.check_rounded,
               size: 30,
             ),
-            color: ColorTheme.swatch3.withOpacity(0.3),
+            color: ColorTheme.primaryColor,
             onTap: controller.verifyNumber,
           ),
         ),
@@ -124,7 +124,7 @@ class BottomRow extends StatelessWidget {
               Icons.backspace,
               size: 30,
             ),
-            color: ColorTheme.swatch7.withOpacity(0.3),
+            color: ColorTheme.accentColor,
             onTap: controller.removeNumber,
             onLongPress: controller.clearNumber,
           ),
