@@ -72,17 +72,6 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
-//
-// class DismmisableTile extends StatelessWidget {
-//   DismmisableTile(Password password, int i);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Dismissible(
-//       key
-//     );
-//   }
-// }
 
 class SearchWidget extends GetView<HomeController> {
   @override

@@ -11,18 +11,22 @@ class CustomButton extends StatelessWidget {
     this.onLongPress,
     this.padding,
     this.isLoading,
+    this.color,
+    this.textColor,
   });
   final VoidCallback? onTap;
   final EdgeInsets? padding;
   final VoidCallback? onLongPress;
   final String text;
+  final Color? color;
+  final Color? textColor;
   final bool? isLoading;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       // color: Color(0xFF263238),
-      color: Theme.of(context).buttonColor,
+      color: color ?? Theme.of(context).buttonColor,
       borderRadius: BorderTheme.borderRadS,
       child: InkWell(
         borderRadius: BorderTheme.borderRadS,
@@ -42,7 +46,7 @@ class CustomButton extends StatelessWidget {
                     size: 18,
                     color: Vx.white,
                   )
-                : text.text.make(),
+                : text.text.color(textColor ?? Vx.white).make(),
           ),
         ),
       ),

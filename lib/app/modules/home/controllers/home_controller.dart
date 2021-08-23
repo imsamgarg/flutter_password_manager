@@ -13,11 +13,8 @@ import 'package:password_manager/app/routes/app_pages.dart';
 class HomeController extends GetxController {
   late List<Password> passwords;
   late Future<bool> instance = _getPasswords();
-  // late TextEditingController searchController = TextEditingController();
   late FocusNode focusNode = FocusNode();
-
-  // final _showSearchIcon = false.obs;
-  // bool get showSearchIcon => _showSearchIcon.value;
+  late int index;
 
   void onAddTap() {
     Get.toNamed(Routes.ADD_PASSWORD)?.then((value) {
@@ -52,10 +49,16 @@ class HomeController extends GetxController {
     }
   }
 
-  void onTilePress(int index) async {}
+  void onTilePress(int index) async {
+    this.index = index;
+    final action = await Get.toNamed(Routes.PASSWORD_INFO);
+    if (action ?? false) {
+      passwords.removeAt(index);
+      update();
+    }
+  }
 
   void searchText(String value) {
-    // _showSearchIcon.value = true;
     passwords.forEach((element) {
       final reg = RegExp(value, caseSensitive: false);
       if (element.email!.contains(reg) || element.website!.contains(reg)) {
@@ -72,11 +75,5 @@ class HomeController extends GetxController {
 
   void unfocus() {
     focusNode.unfocus();
-    // _showSearchIcon.value = false;
   }
-
-  // void clearSearch() {
-  //   searchController.clear();
-  //   _showSearchIcon.value = false;
-  // }
 }

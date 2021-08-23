@@ -6,6 +6,8 @@ import 'package:password_manager/app/modules/home/bindings/home_binding.dart';
 import 'package:password_manager/app/modules/home/views/home_view.dart';
 import 'package:password_manager/app/modules/login/bindings/login_binding.dart';
 import 'package:password_manager/app/modules/login/views/login_view.dart';
+import 'package:password_manager/app/modules/password_info/bindings/password_info_binding.dart';
+import 'package:password_manager/app/modules/password_info/views/password_info_view.dart';
 import 'package:password_manager/app/modules/register/bindings/register_binding.dart';
 import 'package:password_manager/app/modules/register/views/register_view.dart';
 import 'package:password_manager/app/modules/startup/bindings/startup_binding.dart';
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.ADD_PASSWORD,
       page: () => AddPasswordView(),
       binding: AddPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.PASSWORD_INFO,
+      page: () => PasswordInfoView(),
+      binding: PasswordInfoBinding(),
     ),
   ];
 }

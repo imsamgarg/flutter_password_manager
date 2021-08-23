@@ -16,12 +16,12 @@ class AddPasswordController extends GetxController {
   static const _successMessage = "Password Saved Successfully!!";
   static const _alreadyExistMessage = "This Website Mail Combo Already Exists!";
 
-  late GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  late TextEditingController websiteController = TextEditingController();
-  late TextEditingController emailController = TextEditingController();
-  late TextEditingController passController = TextEditingController();
-  late TextEditingController notesController = TextEditingController();
+  late final TextEditingController websiteController = TextEditingController();
+  late final TextEditingController emailController = TextEditingController();
+  late final TextEditingController passController = TextEditingController();
+  late final TextEditingController notesController = TextEditingController();
 
   final _isPasswordHidden = true.obs;
 

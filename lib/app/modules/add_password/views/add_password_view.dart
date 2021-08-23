@@ -1,8 +1,8 @@
 import 'package:custom_utils/spacing_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:password_manager/app/global_widgets/widgets.dart';
 import 'package:password_manager/app/modules/add_password/local_widgets/input_fields.dart';
-import 'package:password_manager/app/modules/add_password/local_widgets/widgets.dart';
 import 'package:password_manager/app/core/values/sizing.dart';
 import 'package:password_manager/app/global_widgets/app_bar.dart';
 import 'package:password_manager/app/global_widgets/buttons.dart';
@@ -52,7 +52,12 @@ class AddPasswordView extends GetView<AddPasswordController> {
               verSpacing20,
               "Platforms".text.semiBold.color(Colors.grey).make(),
               verSpacing20,
-              SelectLogo()
+              Obx(
+                () => SelectLogo(
+                  index: controller.selectedIndex,
+                  onPress: controller.changeImage,
+                ),
+              )
             ],
           ),
         ),
