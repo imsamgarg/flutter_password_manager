@@ -56,8 +56,9 @@ class HomeController extends GetxController {
     final action = await Get.toNamed(Routes.PASSWORD_INFO);
     if (action ?? false) {
       passwords.removeAt(index);
-      update();
+      // update();
     }
+    update();
   }
 
   void searchText(String value) {

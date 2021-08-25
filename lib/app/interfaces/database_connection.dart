@@ -11,4 +11,6 @@ abstract class DatabaseConnection {
   Future<Password> updatePass(Password password);
 
   Future<bool> checkIfExists(String website, String mail);
+
+  Future<void> updateType(Password password);
 }

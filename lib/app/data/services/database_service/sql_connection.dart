@@ -1,3 +1,4 @@
+import 'package:password_manager/app/core/utils/exceptions.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -83,5 +84,18 @@ class SqlConnection implements DatabaseConnection {
       whereArgs: [website, mail],
     );
     return _res.isNotEmpty;
+  }
+
+  @override
+  Future<void> updateType(Password password) async {
+    final website = password.website;
+    final mail = password.email;
+
+    const String query =
+        "${PassFields.website} = ? AND ${PassFields.email} = ?";
+    final _res = await _database.update(passTableName, password.toJson(),
+        where: query, whereArgs: [website, mail]);
+    if (_res == 0)
+      throw DbException("No Password Exists With That Combination");
   }
 }

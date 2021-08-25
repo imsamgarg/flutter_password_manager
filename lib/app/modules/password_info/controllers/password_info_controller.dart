@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:custom_utils/log_utils.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:password_manager/app/core/utils/exceptions.dart';
+import 'package:password_manager/app/core/values/assets.dart';
 import 'package:password_manager/app/core/values/strings.dart';
 import 'package:password_manager/app/data/services/encryption_service.dart';
 import 'package:password_manager/app/data/services/secure_key_service.dart';
 import 'package:password_manager/app/modules/password_info/views/delete_dialog_view.dart';
 
-import 'package:password_manager/app/core/theme/color_theme.dart';
 import 'package:password_manager/app/core/utils/helpers.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
 import 'package:password_manager/app/data/services/database_service/database_service.dart';
@@ -31,28 +31,49 @@ class PasswordInfoController extends GetxController {
   final Rx<int?> _selectedIndex = Rx<int?>(null);
 
   bool isPassLoading = false;
-
   bool isPasswordDecrypted = false;
-
+  // bool anyUpdations = false;
   int? get selectedIndex => _selectedIndex.value;
 
   @override
   void onInit() {
-    initControllers();
+    initComponents();
     super.onInit();
   }
 
-  void changeLogo(int p1) {
+  void changeLogo(int p1) async {
+    await showOverlay(() => _changeLogo(p1));
     _selectedIndex.value = p1;
   }
 
-  void initControllers() {
+  Future<void> _changeLogo(int p1) async {
+    try {
+      final dbService = Get.find<DatabaseService>();
+      password.r = AssetsLogos.logoList[p1].name;
+      await dbService.connection.updateType(password);
+    } on DbException catch (e, s) {
+      errorSnackbar(e.message);
+      customLog("DB Exception", name: "Db Error", error: e, stackTrace: s);
+    } on Exception catch (e, s) {
+      errorSnackbar("Error In Updating Logo");
+      customLog("DB Exception", name: "Db Error", error: e, stackTrace: s);
+    } catch (e, s) {
+      customLog("Error", error: e, stackTrace: s);
+    }
+  }
+
+  void initComponents() {
     final cont = Get.find<HomeController>();
     password = cont.passwords[cont.index];
     emailController.text = password.email!;
     passController.text = password.password!;
     notesController.text = password.notes!;
     websiteController.text = password.website!;
+    final image = password.r!;
+    if (image.isNotEmpty && AssetsLogos.isLogoExist(image)) {
+      customLog(image);
+      _selectedIndex.value = AssetsLogos.logos[image]!.index;
+    }
   }
 
   void deletePass() async {
@@ -61,10 +82,7 @@ class PasswordInfoController extends GetxController {
     if (!deleteSelected) return;
     bool deleteSuccessfull = false;
 
-    deleteSuccessfull = await Get.showOverlay(
-      asyncFunction: _deletePass,
-      loadingWidget: SpinKitThreeBounce(color: ColorTheme.primaryColor),
-    );
+    deleteSuccessfull = await showOverlay(_deletePass);
 
     if (deleteSuccessfull) {
       Get.back(result: true);
@@ -114,4 +132,9 @@ class PasswordInfoController extends GetxController {
     isPasswordDecrypted = true;
     update();
   }
+
+  // Future<bool> onBackPress() async {
+  //   Get.back(result: anyUpdations);
+  //   return false;
+  // }
 }
