@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
-
 import 'package:custom_utils/spacing_utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:velocity_x/velocity_x.dart';
-
 import 'package:password_manager/app/core/values/sizing.dart';
 import 'package:password_manager/app/global_widgets/app_bar.dart';
+import 'package:password_manager/app/global_widgets/buttons.dart';
 import 'package:password_manager/app/global_widgets/widgets.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/password_info_controller.dart';
 
@@ -45,15 +44,23 @@ class PasswordInfoView extends GetView<PasswordInfoController> {
               _Heading("Password"),
               verSpacing10,
               TextFormField(
-                focusNode: controller.focusNode,
                 controller: controller.passController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  suffixIcon: EditButton(onTap: controller.changePassword),
+                ),
               ),
+              verSpacing10,
+              _ChangePasswordButton(),
               verSpacing30,
               _Heading("Notes"),
               verSpacing10,
               TextFormField(
-                // focusNode: controller.focusNode,
                 controller: controller.notesController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  suffixIcon: EditButton(onTap: controller.changeNotes),
+                ),
               ),
               verSpacing30,
               _Heading("Platform"),
@@ -72,13 +79,42 @@ class PasswordInfoView extends GetView<PasswordInfoController> {
   }
 }
 
+class EditButton extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const EditButton({Key? key, required this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onTap,
+      icon: Icon(Icons.edit, color: Vx.white),
+    );
+  }
+}
+
+class _ChangePasswordButton extends GetView<PasswordInfoController> {
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder(
+      init: controller,
+      builder: (_) {
+        return Visibility(
+          visible: !controller.isPasswordDecrypted,
+          child: CustomButton(
+            "Decrypt Password",
+            isLoading: controller.isPassLoading,
+            onTap: controller.decryptPassword,
+          ),
+        );
+      },
+    );
+  }
+}
+
 class _Heading extends StatelessWidget {
-  // const _Heading({Key? key}) : super(key: key);
-
   final String heading;
-
   const _Heading(this.heading);
-  //  : super(key: key);
   @override
   Widget build(BuildContext context) {
     return heading.text.size(13).color(Colors.grey).bold.make();

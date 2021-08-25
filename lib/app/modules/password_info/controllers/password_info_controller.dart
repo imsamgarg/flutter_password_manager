@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:custom_utils/log_utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:password_manager/app/core/values/strings.dart';
+import 'package:password_manager/app/data/services/encryption_service.dart';
+import 'package:password_manager/app/data/services/secure_key_service.dart';
+import 'package:password_manager/app/modules/password_info/views/delete_dialog_view.dart';
 
-import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/core/theme/color_theme.dart';
 import 'package:password_manager/app/core/utils/helpers.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
 import 'package:password_manager/app/data/services/database_service/database_service.dart';
-import 'package:password_manager/app/global_widgets/buttons.dart';
 import 'package:password_manager/app/modules/home/controllers/home_controller.dart';
 
 class PasswordInfoController extends GetxController {
+  final message = "Error In Decrypting Password";
   late Password password;
 
   late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -25,9 +27,12 @@ class PasswordInfoController extends GetxController {
   late final TextEditingController notesController = TextEditingController();
 
   late final FocusNode focusNode = FocusNode();
-  final _isPasswordHidden = true.obs;
 
   final Rx<int?> _selectedIndex = Rx<int?>(null);
+
+  bool isPassLoading = false;
+
+  bool isPasswordDecrypted = false;
 
   int? get selectedIndex => _selectedIndex.value;
 
@@ -52,24 +57,7 @@ class PasswordInfoController extends GetxController {
 
   void deletePass() async {
     focusNode.unfocus();
-    final deleteSelected = await Get.dialog(
-      AlertDialog(
-        title: Text("Confirm"),
-        content: Text("Are You Sure Want To Delete?"),
-        shape: RoundedRectangleBorder(borderRadius: BorderTheme.borderRadM),
-        actions: [
-          _Button(
-              heading: 'No',
-              color: Colors.transparent,
-              onTap: () => Get.back(result: false)),
-          _Button(
-            heading: 'Yes',
-            color: Vx.red700,
-            onTap: () => Get.back(result: true),
-          ),
-        ],
-      ),
-    );
+    final deleteSelected = (await Get.dialog(DeleteDialogView())) ?? false;
     if (!deleteSelected) return;
     bool deleteSuccessfull = false;
 
@@ -96,31 +84,34 @@ class PasswordInfoController extends GetxController {
       return false;
     }
   }
-}
 
-class _Button extends StatelessWidget {
-  final VoidCallback onTap;
-  final Color color;
-  final String heading;
+  void decryptPassword() async {
+    _togglePassLoading(true);
+    try {
+      final encryService = Get.find<EncryptionService>();
+      final sKeyService = Get.find<SecureKeyService>();
+      final key = await sKeyService.getKey(secureKey);
+      final pass = await encryService.decryptText(this.password.password!, key);
+      if (pass.isEmpty) throw Exception("");
+      passController.text = pass;
+      _hideDecryprtPass();
+    } on Exception catch (e) {
+      errorSnackbar(message);
+    }
+    _togglePassLoading(false);
+  }
 
-  const _Button({
-    Key? key,
-    required this.onTap,
-    required this.color,
-    required this.heading,
-  }) : super(key: key);
+  void _togglePassLoading(bool v) {
+    isPassLoading = v;
+    update();
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 80,
-      height: 40,
-      child: CustomButton(
-        heading,
-        padding: const EdgeInsets.all(0),
-        color: color,
-        onTap: onTap,
-      ),
-    );
+  void changePassword() {}
+
+  void changeNotes() {}
+
+  void _hideDecryprtPass() {
+    isPasswordDecrypted = true;
+    update();
   }
 }

@@ -55,3 +55,30 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+
+class DialogButton extends StatelessWidget {
+  final VoidCallback onTap;
+  final Color color;
+  final String heading;
+
+  const DialogButton({
+    Key? key,
+    required this.onTap,
+    required this.color,
+    required this.heading,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 80,
+      height: 40,
+      child: CustomButton(
+        heading,
+        padding: const EdgeInsets.all(0),
+        color: color,
+        onTap: onTap,
+      ),
+    );
+  }
+}
