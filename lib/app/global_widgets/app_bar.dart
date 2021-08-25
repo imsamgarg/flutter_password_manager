@@ -6,8 +6,10 @@ class CustomAppBar extends AppBar {
   CustomAppBar({
     IconData? leadingIcon,
     VoidCallback? leadingPress,
+    String? leadingTooltip,
     IconData? trailingIcon,
     VoidCallback? trailingPress,
+    String? trailingTooltip,
     required String heading,
     PreferredSizeWidget? bottom,
   }) : super(
@@ -16,6 +18,7 @@ class CustomAppBar extends AppBar {
               : IconButton(
                   onPressed: leadingPress,
                   icon: Icon(leadingIcon),
+                  tooltip: leadingTooltip,
                 ),
           centerTitle: true,
           actions: [
@@ -23,6 +26,7 @@ class CustomAppBar extends AppBar {
               IconButton(
                 onPressed: trailingPress,
                 icon: Icon(trailingIcon),
+                tooltip: trailingTooltip,
               )
           ],
           title: heading.text.make(),

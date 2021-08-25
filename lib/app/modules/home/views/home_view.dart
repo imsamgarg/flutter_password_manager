@@ -24,8 +24,10 @@ class HomeView extends GetView<HomeController> {
         heading: heading,
         leadingIcon: Icons.settings,
         leadingPress: controller.onSettingsTap,
+        leadingTooltip: "Settings",
         trailingIcon: Icons.add_circle_outline_rounded,
         trailingPress: controller.onAddTap,
+        trailingTooltip: "Add Password",
       ),
       body: GestureDetector(
         onTap: controller.unfocus,
