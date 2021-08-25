@@ -10,6 +10,8 @@ import 'package:password_manager/app/modules/password_info/bindings/password_inf
 import 'package:password_manager/app/modules/password_info/views/password_info_view.dart';
 import 'package:password_manager/app/modules/register/bindings/register_binding.dart';
 import 'package:password_manager/app/modules/register/views/register_view.dart';
+import 'package:password_manager/app/modules/settings/bindings/settings_binding.dart';
+import 'package:password_manager/app/modules/settings/views/settings_view.dart';
 import 'package:password_manager/app/modules/startup/bindings/startup_binding.dart';
 import 'package:password_manager/app/modules/startup/views/startup_view.dart';
 
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.PASSWORD_INFO,
       page: () => PasswordInfoView(),
       binding: PasswordInfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTINGS,
+      page: () => SettingsView(),
+      binding: SettingsBinding(),
     ),
   ];
 }
