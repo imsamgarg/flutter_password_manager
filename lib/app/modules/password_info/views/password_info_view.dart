@@ -26,47 +26,45 @@ class PasswordInfoView extends GetView<PasswordInfoController> {
           padding: const EdgeInsets.symmetric(
             horizontal: Sizing.sidesGapL,
           ),
-          child: Form(
-            key: controller.formKey,
-            child: ListView(
-              children: [
-                verSpacing20,
-                _Heading("Website"),
-                verSpacing10,
-                TextFormField(
-                  controller: controller.websiteController,
-                  enabled: false,
+          child: ListView(
+            children: [
+              verSpacing20,
+              _Heading("Website"),
+              verSpacing10,
+              TextFormField(
+                controller: controller.websiteController,
+                enabled: false,
+              ),
+              verSpacing30,
+              _Heading("Email"),
+              verSpacing10,
+              TextFormField(
+                controller: controller.emailController,
+                enabled: false,
+              ),
+              verSpacing30,
+              _Heading("Password"),
+              verSpacing10,
+              _PasswordField(),
+              verSpacing10,
+              _ChangePasswordButton(),
+              verSpacing30,
+              _Heading("Notes"),
+              verSpacing10,
+              _NotesField(),
+              // verSpacing10,
+              // _UpdateNotes(),
+              verSpacing30,
+              _Heading("Platform"),
+              verSpacing20,
+              Obx(
+                () => SelectLogo(
+                  index: controller.selectedIndex,
+                  onPress: controller.changeLogo,
                 ),
-                verSpacing30,
-                _Heading("Email"),
-                verSpacing10,
-                TextFormField(
-                  controller: controller.emailController,
-                  enabled: false,
-                ),
-                verSpacing30,
-                _Heading("Password"),
-                verSpacing10,
-                _PasswordField(),
-                verSpacing10,
-                _ChangePasswordButton(),
-                verSpacing30,
-                _Heading("Notes"),
-                verSpacing10,
-                _NotesField(),
-                verSpacing10,
-                _UpdateNotes(),
-                verSpacing30,
-                _Heading("Platform"),
-                verSpacing20,
-                Obx(
-                  () => SelectLogo(
-                    index: controller.selectedIndex,
-                    onPress: controller.changeLogo,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              verSpacing30
+            ],
           ),
         ),
       ),
@@ -83,7 +81,7 @@ class _PasswordField extends GetView<PasswordInfoController> {
       focusNode: controller.passFocusNode,
       decoration: InputDecoration(
         suffixIcon: IconButton(
-          onPressed: controller.changePassword,
+          onPressed: controller.showChangePassDialog,
           icon: Icon(Icons.edit, color: Vx.white),
         ),
       ),
@@ -91,26 +89,26 @@ class _PasswordField extends GetView<PasswordInfoController> {
   }
 }
 
-class _UpdateNotes extends GetView<PasswordInfoController> {
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder(
-      init: controller,
-      id: controller.notesBuilderId,
-      builder: (_) {
-        final value = controller.isNotesReadOnly ? 0 : 55;
-        return AnimatedContainer(
-          duration: Duration(milliseconds: 600),
-          height: value.toDouble(),
-          child: CustomButton(
-            "Update Notes",
-            onTap: controller.changeNotes,
-          ),
-        );
-      },
-    );
-  }
-}
+// class _UpdateNotes extends GetView<PasswordInfoController> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetBuilder(
+//       init: controller,
+//       id: controller.notesBuilderId,
+//       builder: (_) {
+//         final value = controller.isNotesReadOnly ? 0 : 55;
+//         return AnimatedContainer(
+//           duration: Duration(milliseconds: 600),
+//           height: value.toDouble(),
+//           child: CustomButton(
+//             "Update Notes",
+//             onTap: controller.changeNotes,
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
 
 class _NotesField extends GetView<PasswordInfoController> {
   @override
@@ -123,13 +121,19 @@ class _NotesField extends GetView<PasswordInfoController> {
           controller: controller.notesController,
           readOnly: controller.isNotesReadOnly,
           focusNode: controller.noteFocusNode,
+          maxLines: null,
+          minLines: 1,
           decoration: InputDecoration(
             suffixIcon: IconButton(
-              onPressed: () => controller.makeNotesEditable(
-                !controller.isNotesReadOnly,
-              ),
+              onPressed: () {
+                if (controller.isNotesReadOnly) {
+                  controller.changeReadModeNotes(false);
+                } else {
+                  controller.updateNotes();
+                }
+              },
               icon: Icon(
-                controller.isNotesReadOnly ? Icons.edit : Icons.cancel,
+                controller.isNotesReadOnly ? Icons.edit : Icons.check,
                 color: Vx.white,
               ),
             ),

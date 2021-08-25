@@ -14,6 +14,7 @@ import 'package:password_manager/app/data/services/database_service/database_ser
 import 'package:password_manager/app/data/services/encryption_service.dart';
 import 'package:password_manager/app/data/services/secure_key_service.dart';
 import 'package:password_manager/app/modules/home/controllers/home_controller.dart';
+import 'package:password_manager/app/modules/password_info/views/change_password_dialog_view.dart';
 import 'package:password_manager/app/modules/password_info/views/delete_dialog_view.dart';
 
 class PasswordInfoController extends GetxController {
@@ -24,24 +25,32 @@ class PasswordInfoController extends GetxController {
 
   late final TextEditingController websiteController = TextEditingController();
   late final TextEditingController emailController = TextEditingController();
-  late final TextEditingController passController = TextEditingController();
   late final TextEditingController notesController = TextEditingController();
+  late final TextEditingController passController = TextEditingController();
+
+  late final TextEditingController oldPassController = TextEditingController();
+  late final TextEditingController newPassController = TextEditingController();
 
   late final FocusNode passFocusNode = FocusNode();
   late final FocusNode noteFocusNode = FocusNode();
 
-  final Rx<int?> _selectedIndex = Rx<int?>(null);
-
   bool isPassLoading = false;
+  bool changePassLoading = false;
   bool isPasswordDecrypted = false;
   bool isNotesReadOnly = true;
   bool anyUpdations = false;
 
   final decryptionErrorMsg = "Error In Decrypting Password";
   final notesUpdateErrorMsg = "Error Updating Notes";
+  final wrongOldPassErrorMsg = "Incorrect Old Password";
+  final changePassErrorMsg = "Error In Changing Password";
+  final passChangedSuccessMsg = "Password Changes Successfully!!";
+
   final notesBuilderId = "notes";
   final passFieldId = "pass";
+  final changePassBuilderId = "Change Pass";
 
+  final Rx<int?> _selectedIndex = Rx<int?>(null);
   int? get selectedIndex => _selectedIndex.value;
 
   @override
@@ -144,6 +153,11 @@ class PasswordInfoController extends GetxController {
     update([passFieldId]);
   }
 
+  void _showDecryprtPass() {
+    isPasswordDecrypted = false;
+    update([passFieldId]);
+  }
+
   Future<bool> onBackPress() async {
     Get.back(result: {
       "index": passIndex,
@@ -152,24 +166,28 @@ class PasswordInfoController extends GetxController {
     return false;
   }
 
-  void changePassword() {}
-
-  void makeNotesEditable(bool value) {
+  void changeReadModeNotes(bool value) {
     isNotesReadOnly = value;
     update([notesBuilderId]);
   }
 
-  void changeNotes() async {
+  void updateNotes() async {
     if (notesController.text.trim().isEmpty) {
       errorSnackbar("Enter Some Text Before Saving");
       return;
     }
 
+    await showOverlay(_updateNotes);
+  }
+
+  Future<void> _updateNotes() async {
     try {
+      noteFocusNode.unfocus();
       final service = Get.find<DatabaseService>();
       password.notes = notesController.text;
+      // await 10.delay();
       await service.connection.updateNotes(password);
-      makeNotesEditable(true);
+      changeReadModeNotes(true);
     } on DbException catch (e, s) {
       errorSnackbar(e.message);
       customLog(notesUpdateErrorMsg, name: "Error", error: e, stackTrace: s);
@@ -177,5 +195,35 @@ class PasswordInfoController extends GetxController {
       errorSnackbar(notesUpdateErrorMsg);
       customLog(notesUpdateErrorMsg, name: "Error", error: e, stackTrace: s);
     }
+  }
+
+  void changePassword() async {
+    if (!formKey.currentState!.validate()) return;
+    try {
+      final encryService = Get.find<EncryptionService>();
+      final sKeyService = Get.find<SecureKeyService>();
+      final oldPassword = oldPassController.text;
+      final newPassword = newPassController.text;
+      final key = await sKeyService.getKey(secureKey);
+      final dPass = await encryService.decryptText(password.password!, key);
+      if (dPass != oldPassword) {
+        errorSnackbar(wrongOldPassErrorMsg);
+        return;
+      }
+      final ePass = await encryService.encryptText(newPassword, key);
+      passController.text = ePass;
+      password.password = ePass;
+      oldPassController.clear();
+      newPassController.clear();
+      Get.back();
+      _showDecryprtPass();
+      successSnackbar(passChangedSuccessMsg);
+    } on Exception catch (e) {
+      errorSnackbar(changePassErrorMsg);
+    }
+  }
+
+  void showChangePassDialog() {
+    Get.dialog(ChangePasswordDialogView());
   }
 }
