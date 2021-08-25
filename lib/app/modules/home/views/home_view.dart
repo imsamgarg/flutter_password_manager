@@ -1,3 +1,4 @@
+import 'package:custom_utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -108,25 +109,32 @@ class PasswordTile extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      shape: RoundedRectangleBorder(borderRadius: BorderTheme.borderRadM),
-      title: (password.website ?? " --- ").text.semiBold.make(),
-      subtitle: (password.email ?? " --- ").text.sm.make(),
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: WebsiteImage(password.website, password.r),
-      ),
-      onTap: () => controller.onTilePress(index),
-      contentPadding: EdgeInsets.zero,
-      trailing: SizedBox(
-        height: 50,
-        width: 50,
-        child: InkWell(
-          borderRadius: BorderTheme.borderRadM,
-          onTap: () => controller.copyPassword(index),
-          child: Icon(Icons.copy),
-        ).tooltip("Copy Password"),
-      ),
+    return GetBuilder(
+      init: controller,
+      id: "Tile$index",
+      builder: (_) {
+        customLog("Tile Update $index");
+        return ListTile(
+          shape: RoundedRectangleBorder(borderRadius: BorderTheme.borderRadM),
+          title: (password.website ?? " --- ").text.semiBold.make(),
+          subtitle: (password.email ?? " --- ").text.sm.make(),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: WebsiteImage(password.website, password.r),
+          ),
+          onTap: () => controller.onTilePress(index),
+          contentPadding: EdgeInsets.zero,
+          trailing: SizedBox(
+            height: 50,
+            width: 50,
+            child: InkWell(
+              borderRadius: BorderTheme.borderRadM,
+              onTap: () => controller.copyPassword(index),
+              child: Icon(Icons.copy),
+            ).tooltip("Copy Password"),
+          ),
+        );
+      },
     );
   }
 }

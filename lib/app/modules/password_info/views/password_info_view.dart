@@ -14,66 +14,69 @@ import '../controllers/password_info_controller.dart';
 class PasswordInfoView extends GetView<PasswordInfoController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        heading: controller.password.website!,
-        trailingIcon: Icons.delete,
-        trailingPress: controller.deletePass,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Sizing.sidesGapL,
+    return WillPopScope(
+      onWillPop: controller.onBackPress,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          heading: controller.password.website!,
+          trailingIcon: Icons.delete,
+          trailingPress: controller.deletePass,
         ),
-        child: Form(
-          key: controller.formKey,
-          child: ListView(
-            children: [
-              verSpacing20,
-              _Heading("Website"),
-              verSpacing10,
-              TextFormField(
-                controller: controller.websiteController,
-                enabled: false,
-              ),
-              verSpacing30,
-              _Heading("Email"),
-              verSpacing10,
-              TextFormField(
-                controller: controller.emailController,
-                enabled: false,
-              ),
-              verSpacing30,
-              _Heading("Password"),
-              verSpacing10,
-              TextFormField(
-                controller: controller.passController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  suffixIcon: EditButton(onTap: controller.changePassword),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Sizing.sidesGapL,
+          ),
+          child: Form(
+            key: controller.formKey,
+            child: ListView(
+              children: [
+                verSpacing20,
+                _Heading("Website"),
+                verSpacing10,
+                TextFormField(
+                  controller: controller.websiteController,
+                  enabled: false,
                 ),
-              ),
-              verSpacing10,
-              _ChangePasswordButton(),
-              verSpacing30,
-              _Heading("Notes"),
-              verSpacing10,
-              TextFormField(
-                controller: controller.notesController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  suffixIcon: EditButton(onTap: controller.changeNotes),
+                verSpacing30,
+                _Heading("Email"),
+                verSpacing10,
+                TextFormField(
+                  controller: controller.emailController,
+                  enabled: false,
                 ),
-              ),
-              verSpacing30,
-              _Heading("Platform"),
-              verSpacing20,
-              Obx(
-                () => SelectLogo(
-                  index: controller.selectedIndex,
-                  onPress: controller.changeLogo,
+                verSpacing30,
+                _Heading("Password"),
+                verSpacing10,
+                TextFormField(
+                  controller: controller.passController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    suffixIcon: EditButton(onTap: controller.changePassword),
+                  ),
                 ),
-              ),
-            ],
+                verSpacing10,
+                _ChangePasswordButton(),
+                verSpacing30,
+                _Heading("Notes"),
+                verSpacing10,
+                TextFormField(
+                  controller: controller.notesController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    suffixIcon: EditButton(onTap: controller.changeNotes),
+                  ),
+                ),
+                verSpacing30,
+                _Heading("Platform"),
+                verSpacing20,
+                Obx(
+                  () => SelectLogo(
+                    index: controller.selectedIndex,
+                    onPress: controller.changeLogo,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

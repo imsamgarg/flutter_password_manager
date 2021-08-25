@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import 'package:password_manager/app/core/utils/helpers.dart';
 import 'package:password_manager/app/core/values/strings.dart';
+import 'package:password_manager/app/core/values/values.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
 import 'package:password_manager/app/data/services/database_service/database_service.dart';
 import 'package:password_manager/app/data/services/encryption_service.dart';
@@ -53,12 +54,24 @@ class HomeController extends GetxController {
 
   void onTilePress(int index) async {
     this.index = index;
-    final action = await Get.toNamed(Routes.PASSWORD_INFO);
-    if (action ?? false) {
-      passwords.removeAt(index);
-      // update();
+    final res = (await Get.toNamed(Routes.PASSWORD_INFO)) ?? {};
+    final UpdateAction action = res["action"] ?? UpdateAction.None;
+    final int? i = res["index"];
+    switch (action) {
+      case UpdateAction.Updations:
+        {
+          update(["Tile$i"]);
+        }
+        break;
+      case UpdateAction.PassRemoved:
+        {
+          passwords.removeAt(index);
+          update();
+        }
+        break;
+      case UpdateAction.None:
+        break;
     }
-    update();
   }
 
   void searchText(String value) {
@@ -72,7 +85,6 @@ class HomeController extends GetxController {
     });
 
     print(passwords.where((element) => element.isVisible).toList());
-
     update();
   }
 

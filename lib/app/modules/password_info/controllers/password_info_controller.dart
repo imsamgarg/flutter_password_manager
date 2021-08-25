@@ -8,6 +8,7 @@ import 'package:password_manager/app/core/utils/exceptions.dart';
 import 'package:password_manager/app/core/utils/helpers.dart';
 import 'package:password_manager/app/core/values/assets.dart';
 import 'package:password_manager/app/core/values/strings.dart';
+import 'package:password_manager/app/core/values/values.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
 import 'package:password_manager/app/data/services/database_service/database_service.dart';
 import 'package:password_manager/app/data/services/encryption_service.dart';
@@ -18,7 +19,7 @@ import 'package:password_manager/app/modules/password_info/views/delete_dialog_v
 class PasswordInfoController extends GetxController {
   final message = "Error In Decrypting Password";
   late Password password;
-
+  late int passIndex;
   late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late final TextEditingController websiteController = TextEditingController();
@@ -32,7 +33,7 @@ class PasswordInfoController extends GetxController {
 
   bool isPassLoading = false;
   bool isPasswordDecrypted = false;
-  // bool anyUpdations = false;
+  bool anyUpdations = false;
   int? get selectedIndex => _selectedIndex.value;
 
   @override
@@ -51,6 +52,7 @@ class PasswordInfoController extends GetxController {
       final dbService = Get.find<DatabaseService>();
       password.r = AssetsLogos.logoList[p1].name;
       await dbService.connection.updateType(password);
+      anyUpdations = true;
     } on DbException catch (e, s) {
       errorSnackbar(e.message);
       customLog("DB Exception", name: "Db Error", error: e, stackTrace: s);
@@ -64,7 +66,8 @@ class PasswordInfoController extends GetxController {
 
   void initComponents() {
     final cont = Get.find<HomeController>();
-    password = cont.passwords[cont.index];
+    passIndex = cont.index;
+    password = cont.passwords[passIndex];
     emailController.text = password.email!;
     passController.text = password.password!;
     notesController.text = password.notes!;
@@ -85,7 +88,10 @@ class PasswordInfoController extends GetxController {
     deleteSuccessfull = await showOverlay(_deletePass);
 
     if (deleteSuccessfull) {
-      Get.back(result: true);
+      Get.back(result: {
+        "index": null,
+        "action": UpdateAction.PassRemoved,
+      });
       successSnackbar("Password Deleted Succesfully!!");
     } else {
       errorSnackbar("Error In Deleting Password");
@@ -113,7 +119,7 @@ class PasswordInfoController extends GetxController {
       if (pass.isEmpty) throw Exception("");
       passController.text = pass;
       _hideDecryprtPass();
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       errorSnackbar(message);
     }
     _togglePassLoading(false);
@@ -133,8 +139,11 @@ class PasswordInfoController extends GetxController {
     update();
   }
 
-  // Future<bool> onBackPress() async {
-  //   Get.back(result: anyUpdations);
-  //   return false;
-  // }
+  Future<bool> onBackPress() async {
+    Get.back(result: {
+      "index": passIndex,
+      "action": anyUpdations ? UpdateAction.Updations : UpdateAction.None,
+    });
+    return false;
+  }
 }
