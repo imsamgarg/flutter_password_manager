@@ -17,9 +17,9 @@ import 'package:password_manager/app/modules/home/controllers/home_controller.da
 import 'package:password_manager/app/modules/password_info/views/delete_dialog_view.dart';
 
 class PasswordInfoController extends GetxController {
-  final message = "Error In Decrypting Password";
   late Password password;
   late int passIndex;
+
   late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late final TextEditingController websiteController = TextEditingController();
@@ -27,13 +27,21 @@ class PasswordInfoController extends GetxController {
   late final TextEditingController passController = TextEditingController();
   late final TextEditingController notesController = TextEditingController();
 
-  late final FocusNode focusNode = FocusNode();
+  late final FocusNode passFocusNode = FocusNode();
+  late final FocusNode noteFocusNode = FocusNode();
 
   final Rx<int?> _selectedIndex = Rx<int?>(null);
 
   bool isPassLoading = false;
   bool isPasswordDecrypted = false;
+  bool isNotesReadOnly = true;
   bool anyUpdations = false;
+
+  final decryptionErrorMsg = "Error In Decrypting Password";
+  final notesUpdateErrorMsg = "Error Updating Notes";
+  final notesBuilderId = "notes";
+  final passFieldId = "pass";
+
   int? get selectedIndex => _selectedIndex.value;
 
   @override
@@ -80,7 +88,8 @@ class PasswordInfoController extends GetxController {
   }
 
   void deletePass() async {
-    focusNode.unfocus();
+    passFocusNode.unfocus();
+    noteFocusNode.unfocus();
     final deleteSelected = (await Get.dialog(DeleteDialogView())) ?? false;
     if (!deleteSelected) return;
     bool deleteSuccessfull = false;
@@ -120,23 +129,19 @@ class PasswordInfoController extends GetxController {
       passController.text = pass;
       _hideDecryprtPass();
     } on Exception catch (_) {
-      errorSnackbar(message);
+      errorSnackbar(decryptionErrorMsg);
     }
     _togglePassLoading(false);
   }
 
   void _togglePassLoading(bool v) {
     isPassLoading = v;
-    update();
+    update([passFieldId]);
   }
-
-  void changePassword() {}
-
-  void changeNotes() {}
 
   void _hideDecryprtPass() {
     isPasswordDecrypted = true;
-    update();
+    update([passFieldId]);
   }
 
   Future<bool> onBackPress() async {
@@ -145,5 +150,32 @@ class PasswordInfoController extends GetxController {
       "action": anyUpdations ? UpdateAction.Updations : UpdateAction.None,
     });
     return false;
+  }
+
+  void changePassword() {}
+
+  void makeNotesEditable(bool value) {
+    isNotesReadOnly = value;
+    update([notesBuilderId]);
+  }
+
+  void changeNotes() async {
+    if (notesController.text.trim().isEmpty) {
+      errorSnackbar("Enter Some Text Before Saving");
+      return;
+    }
+
+    try {
+      final service = Get.find<DatabaseService>();
+      password.notes = notesController.text;
+      await service.connection.updateNotes(password);
+      makeNotesEditable(true);
+    } on DbException catch (e, s) {
+      errorSnackbar(e.message);
+      customLog(notesUpdateErrorMsg, name: "Error", error: e, stackTrace: s);
+    } on Exception catch (e, s) {
+      errorSnackbar(notesUpdateErrorMsg);
+      customLog(notesUpdateErrorMsg, name: "Error", error: e, stackTrace: s);
+    }
   }
 }

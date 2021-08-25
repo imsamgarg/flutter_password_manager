@@ -47,25 +47,15 @@ class PasswordInfoView extends GetView<PasswordInfoController> {
                 verSpacing30,
                 _Heading("Password"),
                 verSpacing10,
-                TextFormField(
-                  controller: controller.passController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    suffixIcon: EditButton(onTap: controller.changePassword),
-                  ),
-                ),
+                _PasswordField(),
                 verSpacing10,
                 _ChangePasswordButton(),
                 verSpacing30,
                 _Heading("Notes"),
                 verSpacing10,
-                TextFormField(
-                  controller: controller.notesController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    suffixIcon: EditButton(onTap: controller.changeNotes),
-                  ),
-                ),
+                _NotesField(),
+                verSpacing10,
+                _UpdateNotes(),
                 verSpacing30,
                 _Heading("Platform"),
                 verSpacing20,
@@ -84,16 +74,68 @@ class PasswordInfoView extends GetView<PasswordInfoController> {
   }
 }
 
-class EditButton extends StatelessWidget {
-  final VoidCallback onTap;
-
-  const EditButton({Key? key, required this.onTap}) : super(key: key);
-
+class _PasswordField extends GetView<PasswordInfoController> {
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onTap,
-      icon: Icon(Icons.edit, color: Vx.white),
+    return TextFormField(
+      controller: controller.passController,
+      readOnly: true,
+      focusNode: controller.passFocusNode,
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          onPressed: controller.changePassword,
+          icon: Icon(Icons.edit, color: Vx.white),
+        ),
+      ),
+    );
+  }
+}
+
+class _UpdateNotes extends GetView<PasswordInfoController> {
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder(
+      init: controller,
+      id: controller.notesBuilderId,
+      builder: (_) {
+        final value = controller.isNotesReadOnly ? 0 : 55;
+        return AnimatedContainer(
+          duration: Duration(milliseconds: 600),
+          height: value.toDouble(),
+          child: CustomButton(
+            "Update Notes",
+            onTap: controller.changeNotes,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _NotesField extends GetView<PasswordInfoController> {
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder(
+      init: controller,
+      id: controller.notesBuilderId,
+      builder: (_) {
+        return TextFormField(
+          controller: controller.notesController,
+          readOnly: controller.isNotesReadOnly,
+          focusNode: controller.noteFocusNode,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              onPressed: () => controller.makeNotesEditable(
+                !controller.isNotesReadOnly,
+              ),
+              icon: Icon(
+                controller.isNotesReadOnly ? Icons.edit : Icons.cancel,
+                color: Vx.white,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -103,8 +145,9 @@ class _ChangePasswordButton extends GetView<PasswordInfoController> {
   Widget build(BuildContext context) {
     return GetBuilder(
       init: controller,
+      id: controller.passFieldId,
       builder: (_) {
-        final value = !controller.isPasswordDecrypted ? 50 : 0;
+        final value = !controller.isPasswordDecrypted ? 55 : 0;
         return AnimatedContainer(
           duration: Duration(milliseconds: 300),
           height: value.toDouble(),

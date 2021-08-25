@@ -98,4 +98,17 @@ class SqlConnection implements DatabaseConnection {
     if (_res == 0)
       throw DbException("No Password Exists With That Combination");
   }
+
+  @override
+  Future<void> updateNotes(Password password) async {
+    final website = password.website;
+    final mail = password.email;
+
+    const String query =
+        "${PassFields.website} = ? AND ${PassFields.email} = ?";
+    final _res = await _database.update(passTableName, password.toJson(),
+        where: query, whereArgs: [website, mail]);
+    if (_res == 0)
+      throw DbException("No Password Exists With That Combination");
+  }
 }
