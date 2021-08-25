@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -38,4 +39,12 @@ void customSnackBar(
     overlayColor: fgColor,
     borderRadius: Sizing.radiusS,
   );
+}
+
+Future<T> showOverlay<T>(Future<T> fun()) async {
+  final value = await Get.showOverlay(
+    asyncFunction: fun,
+    loadingWidget: SpinKitThreeBounce(color: ColorTheme.primaryColor),
+  );
+  return value;
 }
