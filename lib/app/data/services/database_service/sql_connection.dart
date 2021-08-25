@@ -1,7 +1,7 @@
-import 'package:password_manager/app/core/utils/exceptions.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'package:password_manager/app/core/utils/exceptions.dart';
 import 'package:password_manager/app/core/values/queries.dart';
 import 'package:password_manager/app/core/values/strings.dart';
 import 'package:password_manager/app/data/models/password_model.dart';
