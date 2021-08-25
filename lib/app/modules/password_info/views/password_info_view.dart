@@ -99,8 +99,10 @@ class _ChangePasswordButton extends GetView<PasswordInfoController> {
     return GetBuilder(
       init: controller,
       builder: (_) {
-        return Visibility(
-          visible: !controller.isPasswordDecrypted,
+        final value = !controller.isPasswordDecrypted ? 50 : 0;
+        return AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          height: value.toDouble(),
           child: CustomButton(
             "Decrypt Password",
             isLoading: controller.isPassLoading,
