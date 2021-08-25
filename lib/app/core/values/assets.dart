@@ -10,27 +10,27 @@ class AssetsLogos {
   static const twitterPNG = 'assets/logos/twitter.png';
 
   static const logoList = [
-    const Asset('Amazon', amazonPNG),
-    const Asset('Facebook', fbPNG),
-    const Asset('Flipkart', flipkartJPEG),
-    const Asset('Google', googlePNG),
-    const Asset('Instagram', instaJPEG),
-    const Asset('Microsoft', microsoftPNG),
-    const Asset('Qoura', qouraPNG),
-    const Asset('Snapchat', snapchatPNG),
-    const Asset('Twitter', twitterPNG),
+    const Asset('Amazon', amazonPNG, 0),
+    const Asset('Facebook', fbPNG, 1),
+    const Asset('Flipkart', flipkartJPEG, 2),
+    const Asset('Google', googlePNG, 3),
+    const Asset('Instagram', instaJPEG, 4),
+    const Asset('Microsoft', microsoftPNG, 5),
+    const Asset('Qoura', qouraPNG, 6),
+    const Asset('Snapchat', snapchatPNG, 7),
+    const Asset('Twitter', twitterPNG, 8),
   ];
 
   static const logos = {
-    'Amazon': Asset('amazon', amazonPNG),
-    'Facebook': Asset('fb', fbPNG),
-    'Flipkart': Asset('flipkart', flipkartJPEG),
-    'Google': Asset('google', googlePNG),
-    'Instagram': Asset('insta', instaJPEG),
-    'Microsoft': Asset('microsoft', microsoftPNG),
-    'Qoura': Asset('qoura', qouraPNG),
-    'Snapchat': Asset('snapchat', snapchatPNG),
-    'Twitter': Asset('twitter', twitterPNG),
+    'Amazon': Asset('amazon', amazonPNG, 0),
+    'Facebook': Asset('fb', fbPNG, 1),
+    'Flipkart': Asset('flipkart', flipkartJPEG, 2),
+    'Google': Asset('google', googlePNG, 3),
+    'Instagram': Asset('insta', instaJPEG, 4),
+    'Microsoft': Asset('microsoft', microsoftPNG, 5),
+    'Qoura': Asset('qoura', qouraPNG, 6),
+    'Snapchat': Asset('snapchat', snapchatPNG, 7),
+    'Twitter': Asset('twitter', twitterPNG, 8),
   };
 
   static bool isLogoExist(String image) {
@@ -41,6 +41,7 @@ class AssetsLogos {
 class Asset {
   final String name;
   final String path;
+  final int index;
 
-  const Asset(this.name, this.path);
+  const Asset(this.name, this.path, this.index);
 }
