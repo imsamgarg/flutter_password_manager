@@ -51,6 +51,11 @@ class PasswordInfoController extends GetxController {
   final changePassBuilderId = "Change Pass";
 
   final Rx<int?> _selectedIndex = Rx<int?>(null);
+  final _isNewPassObscure = true.obs;
+  final _isOldPassObscure = true.obs;
+
+  bool get isNewPassObscure => _isNewPassObscure.value;
+  bool get isOldPassObscure => _isOldPassObscure.value;
   int? get selectedIndex => _selectedIndex.value;
 
   @override
@@ -218,12 +223,21 @@ class PasswordInfoController extends GetxController {
       Get.back();
       _showDecryprtPass();
       successSnackbar(passChangedSuccessMsg);
-    } on Exception catch (e) {
+    } on Exception catch (e, s) {
       errorSnackbar(changePassErrorMsg);
+      customLog("Error Changing Pass", name: "Error", error: e, stackTrace: s);
     }
   }
 
   void showChangePassDialog() {
     Get.dialog(ChangePasswordDialogView());
+  }
+
+  void toggleNewPassVisibility() {
+    _isNewPassObscure.value = !_isNewPassObscure.value;
+  }
+
+  void toggleOldPassVisibility() {
+    _isOldPassObscure.value = !_isOldPassObscure.value;
   }
 }
