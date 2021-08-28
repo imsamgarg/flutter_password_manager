@@ -58,17 +58,23 @@ class RegisterController extends GetxController implements AuthInterface {
         update();
       }
     } else {
-      if (number1 == number2) {
-        final service = Get.find<SecureKeyService>();
-        final bool hasSaved = await service.saveKey(number1, passCode);
-        if (hasSaved) {
-          Get.to(() => SetPasswordView());
-        } else {
-          errorSnackbar(errorMessage);
-        }
+      await showOverlay(_saveCode);
+    }
+  }
+
+  Future<void> _saveCode() async {
+    if (number1 == number2) {
+      final service = Get.find<SecureKeyService>();
+      final bool hasSaved = await service.saveKey(number1, passCode);
+      final v = await service.saveKey('yes', promptForPassEveryTime);
+
+      if (hasSaved) {
+        Get.to(() => SetPasswordView());
       } else {
-        errorSnackbar("Wrong Pass Code");
+        errorSnackbar(errorMessage);
       }
+    } else {
+      errorSnackbar("Wrong Pass Code");
     }
   }
 
