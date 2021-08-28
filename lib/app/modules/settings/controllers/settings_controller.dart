@@ -1,20 +1,51 @@
+import 'package:custom_utils/log_utils.dart';
 import 'package:get/get.dart';
+import 'package:password_manager/app/core/utils/helpers.dart';
+import 'package:password_manager/app/data/services/database_service/database_service.dart';
+import 'package:password_manager/app/modules/home/controllers/home_controller.dart';
+import 'package:password_manager/app/modules/settings/views/delete_dialog_view.dart';
 
 class SettingsController extends GetxController {
-  //TODO: Implement SettingsController
+  late final _askForPassSwitch = false.obs;
+  bool get askForPassSwitch => _askForPassSwitch.value;
 
-  final count = 0.obs;
+  final String deletingPassErrorMessage = "Error Deleting Passwords";
   @override
   void onInit() {
+    initComponents();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void toggleAskForPassSwitch(bool value) {
+    _askForPassSwitch.value = value;
   }
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  void changePassCode() {}
+
+  void backupAndRestore() {}
+
+  void initComponents() {}
+
+  void deleteAllPasswords() async {
+    Get.dialog(DeleteDialogView());
+  }
+
+  void confirmDeletion() async {
+    await showOverlay(_deleteAllPasswords);
+  }
+
+  Future<void> _deleteAllPasswords() async {
+    final service = Get.find<DatabaseService>();
+    try {
+      //deleting password from db
+      await service.connection.deleteAllPasswords();
+      successSnackbar("Passwords Deleted Successfully");
+
+      //clearing passwords from memory
+      Get.find<HomeController>().passwords.clear();
+    } on Exception catch (e, s) {
+      customLog("Deleting Password", name: "Error", error: e, stackTrace: s);
+      errorSnackbar(deletingPassErrorMessage);
+    }
+  }
 }

@@ -96,9 +96,8 @@ class SqlConnection implements DatabaseConnection {
   }
 
   @override
-  Future<void> deleteAllPasswords() {
-    // TODO: implement deleteAllPasswords
-    throw UnimplementedError();
+  Future<void> deleteAllPasswords() async {
+    await _database.delete(passTableName);
   }
 
   Future<void> _updateDetails(Password password) async {
