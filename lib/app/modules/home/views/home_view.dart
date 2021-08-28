@@ -52,10 +52,10 @@ class HomeView extends GetView<HomeController> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
+                              iconSize: 48,
                               onPressed: controller.onAddTap,
                               icon: Icon(
                                 Icons.add_circle_outline_rounded,
-                                size: 32,
                                 color: Theme.of(context).primaryColor,
                               ),
                             ),
