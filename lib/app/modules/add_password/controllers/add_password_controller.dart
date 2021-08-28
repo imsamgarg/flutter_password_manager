@@ -101,7 +101,7 @@ class AddPasswordController extends GetxController {
       int _time = DateTime.now().millisecondsSinceEpoch;
 
       //Will use key for encryption
-      final _key = await _secureKeyService.getKey(secureKey);
+      final _key = await _secureKeyService.getKey(passCode);
       if (_key.isEmpty) throw Exception();
 
       //Encrypt Password

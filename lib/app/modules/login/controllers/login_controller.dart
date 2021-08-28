@@ -29,7 +29,7 @@ class LoginController extends GetxController implements AuthInterface {
   void verifyNumber() async {
     if (_number.value.length != 6) return;
     final service = Get.find<SecureKeyService>();
-    final keyMatched = await service.matchKey(number, secureKey);
+    final keyMatched = await service.matchKey(number, passCode);
     if (keyMatched) {
       Get.offAllNamed(Routes.HOME);
       return;

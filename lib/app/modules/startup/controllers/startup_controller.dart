@@ -18,7 +18,7 @@ class StartupController extends GetxController {
 
   void validate() async {
     final service = Get.find<SecureKeyService>();
-    bool hasKey = await service.hasKey(secureKey);
+    bool hasKey = await service.hasKey(passCode);
     if (hasKey) {
       Get.toNamed(Routes.LOGIN);
     } else {

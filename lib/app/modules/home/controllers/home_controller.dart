@@ -47,7 +47,7 @@ class HomeController extends GetxController {
       final secureKeyService = Get.find<SecureKeyService>();
       final encryptService = Get.find<EncryptionService>();
 
-      final key = await secureKeyService.getKey(secureKey);
+      final key = await secureKeyService.getKey(passCode);
       final decryptedPass = await encryptService.decryptText(pass, key);
       Clipboard.setData(ClipboardData(text: decryptedPass));
       successSnackbar("Password Copied To Clipboard");

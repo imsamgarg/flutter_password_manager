@@ -59,7 +59,7 @@ class RegisterController extends GetxController implements AuthInterface {
     } else {
       if (number1 == number2) {
         final service = Get.find<SecureKeyService>();
-        final bool hasSaved = await service.saveKey(number1, secureKey);
+        final bool hasSaved = await service.saveKey(number1, passCode);
         if (hasSaved) {
           Get.offAllNamed(Routes.HOME);
         } else {

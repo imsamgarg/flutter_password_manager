@@ -1,4 +1,7 @@
-const String secureKey = "secure_key";
+const String passCode = "secure_key";
+const String passwordKey = "ds_pa_s";
+const String promptForPassEveryTime = "promptForPassEveryTime";
+
 const String passTableName = "password";
 
 abstract class PassFields {
