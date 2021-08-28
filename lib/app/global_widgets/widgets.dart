@@ -110,3 +110,24 @@ class LockIcon extends StatelessWidget {
     );
   }
 }
+
+class ShowPasswordToggle extends StatelessWidget {
+  final VoidCallback onTap;
+  final bool isHidden;
+
+  const ShowPasswordToggle({
+    Key? key,
+    required this.onTap,
+    required this.isHidden,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onTap,
+      icon: Icon(
+        isHidden ? Icons.visibility_off : Icons.visibility,
+      ),
+    );
+  }
+}

@@ -50,6 +50,8 @@ class ColorTheme {
 
   static const Color inputBgColor = Color(0xFF1A2327);
 
+  static const Color dialogBgColor = backgroungColor;
+
   static Color get successColor {
     bool _isDark = Get.isDarkMode;
     return _isDark ? successColorDark : successColorLight;

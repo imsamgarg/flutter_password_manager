@@ -1,15 +1,27 @@
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:password_manager/app/core/utils/helpers.dart';
 
 import 'package:password_manager/app/core/values/strings.dart';
 import 'package:password_manager/app/data/services/secure_key_service.dart';
 import 'package:password_manager/app/interfaces/auth_interface.dart';
+import 'package:password_manager/app/modules/register/views/set_password_view.dart';
 import 'package:password_manager/app/routes/app_pages.dart';
 
 class RegisterController extends GetxController implements AuthInterface {
   final _number1 = "".obs;
   final _number2 = "".obs;
+
+  late final String errorMessage = "Failed To Save Pass Code!!";
+
+  var formKey;
+
+  var passController;
+
+  var isPassObscure;
+
+  var confirmPassController;
+
+  var isConfirmPassObscure;
 
   String get number1 => _number1.value;
   String get number2 => _number1.value;
@@ -51,6 +63,8 @@ class RegisterController extends GetxController implements AuthInterface {
 
   @override
   void verifyNumber() async {
+    Get.to(() => SetPasswordView());
+
     if (!isConfirmActivate) {
       if (number1.length == 6) {
         isConfirmActivate = true;
@@ -61,11 +75,9 @@ class RegisterController extends GetxController implements AuthInterface {
         final service = Get.find<SecureKeyService>();
         final bool hasSaved = await service.saveKey(number1, passCode);
         if (hasSaved) {
-          Get.offAllNamed(Routes.HOME);
+          Get.to(() => SetPasswordView());
         } else {
-          Get.rawSnackbar(
-              message: "Failed To Save Pass Code!!",
-              backgroundColor: Colors.red);
+          errorSnackbar(errorMessage);
         }
       }
     }
@@ -77,4 +89,9 @@ class RegisterController extends GetxController implements AuthInterface {
     update();
     return false;
   }
+
+  void setPassword() {}
+
+  void toggleConfirmPassVisibility() {}
+  void togglePassVisibility() {}
 }

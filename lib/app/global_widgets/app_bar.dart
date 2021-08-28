@@ -8,6 +8,7 @@ class CustomAppBar extends AppBar {
     VoidCallback? leadingPress,
     String? leadingTooltip,
     IconData? trailingIcon,
+    bool automaticallyImplyLeading = true,
     VoidCallback? trailingPress,
     String? trailingTooltip,
     required String heading,
@@ -21,6 +22,7 @@ class CustomAppBar extends AppBar {
                   tooltip: leadingTooltip,
                 ),
           centerTitle: true,
+          automaticallyImplyLeading: automaticallyImplyLeading,
           actions: [
             if (trailingIcon != null)
               IconButton(

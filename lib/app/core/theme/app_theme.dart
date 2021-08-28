@@ -25,6 +25,7 @@ ThemeData dartTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: ColorTheme.backgroungColor,
   ),
+  dialogBackgroundColor: ColorTheme.dialogBgColor,
   buttonColor: ColorTheme.buttonColor,
   canvasColor: ColorTheme.backgroungColor,
   inputDecorationTheme: InputDecorationTheme(

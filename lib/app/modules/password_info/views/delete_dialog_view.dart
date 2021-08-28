@@ -10,7 +10,7 @@ class DeleteDialogView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).dialogBackgroundColor,
       title: Text("Confirm"),
       content: Text("Are You Sure Want To Delete?"),
       shape: RoundedRectangleBorder(borderRadius: BorderTheme.borderRadM),

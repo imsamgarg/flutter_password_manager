@@ -12,7 +12,7 @@ class DeleteDialogView extends GetView<SettingsController> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Delete Passwords"),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).dialogBackgroundColor,
       shape: RoundedRectangleBorder(borderRadius: BorderTheme.borderRadM),
       content: Column(
         mainAxisSize: MainAxisSize.min,
