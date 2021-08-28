@@ -28,7 +28,12 @@ class HomeController extends GetxController {
     });
   }
 
-  void onSettingsTap() {}
+  void onSettingsTap() async {
+    await Get.toNamed(Routes.SETTINGS);
+    if (passwords.length == 0) {
+      update();
+    }
+  }
 
   Future<bool> _getPasswords() async {
     final service = Get.find<DatabaseService>();
