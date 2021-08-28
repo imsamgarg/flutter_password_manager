@@ -1,3 +1,4 @@
+import 'package:custom_utils/log_utils.dart';
 import 'package:get/get.dart';
 import 'package:password_manager/app/core/utils/helpers.dart';
 
@@ -13,18 +14,8 @@ class RegisterController extends GetxController implements AuthInterface {
 
   late final String errorMessage = "Failed To Save Pass Code!!";
 
-  var formKey;
-
-  var passController;
-
-  var isPassObscure;
-
-  var confirmPassController;
-
-  var isConfirmPassObscure;
-
   String get number1 => _number1.value;
-  String get number2 => _number1.value;
+  String get number2 => _number2.value;
 
   bool isConfirmActivate = false;
 
@@ -63,7 +54,7 @@ class RegisterController extends GetxController implements AuthInterface {
 
   @override
   void verifyNumber() async {
-    Get.to(() => SetPasswordView());
+    // Get.to(() => SetPasswordView());
 
     if (!isConfirmActivate) {
       if (number1.length == 6) {
@@ -71,6 +62,7 @@ class RegisterController extends GetxController implements AuthInterface {
         update();
       }
     } else {
+      customLog(number1 == number2, name: "Are Same");
       if (number1 == number2) {
         final service = Get.find<SecureKeyService>();
         final bool hasSaved = await service.saveKey(number1, passCode);
@@ -79,6 +71,8 @@ class RegisterController extends GetxController implements AuthInterface {
         } else {
           errorSnackbar(errorMessage);
         }
+      } else {
+        errorSnackbar("Wrong Pass Code");
       }
     }
   }
@@ -89,9 +83,4 @@ class RegisterController extends GetxController implements AuthInterface {
     update();
     return false;
   }
-
-  void setPassword() {}
-
-  void toggleConfirmPassVisibility() {}
-  void togglePassVisibility() {}
 }
