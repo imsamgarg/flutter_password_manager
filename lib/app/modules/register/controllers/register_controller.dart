@@ -14,20 +14,20 @@ class RegisterController extends GetxController implements AuthInterface {
   String get number1 => _number1.value;
   String get number2 => _number1.value;
 
-  bool _isConfirmActivate = false;
+  bool isConfirmActivate = false;
 
   String get number {
-    if (_isConfirmActivate) return _number2.value;
+    if (isConfirmActivate) return _number2.value;
     return _number1.value;
   }
 
   String get heading {
-    if (_isConfirmActivate) return "Confirm";
-    return "Register";
+    if (isConfirmActivate) return "Confirm Pin Code";
+    return "Set A 6 Digit Pin Code";
   }
 
   void set number(String num) {
-    if (_isConfirmActivate) {
+    if (isConfirmActivate) {
       _number2.value = num;
     } else {
       _number1.value = num;
@@ -51,9 +51,9 @@ class RegisterController extends GetxController implements AuthInterface {
 
   @override
   void verifyNumber() async {
-    if (!_isConfirmActivate) {
+    if (!isConfirmActivate) {
       if (number1.length == 6) {
-        _isConfirmActivate = true;
+        isConfirmActivate = true;
         update();
       }
     } else {
@@ -69,5 +69,12 @@ class RegisterController extends GetxController implements AuthInterface {
         }
       }
     }
+  }
+
+  Future<bool> onBackPress() async {
+    if (!isConfirmActivate) return true;
+    isConfirmActivate = false;
+    update();
+    return false;
   }
 }

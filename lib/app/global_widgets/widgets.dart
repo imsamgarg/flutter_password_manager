@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:velocity_x/velocity_x.dart';
-
 import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/core/theme/color_theme.dart';
 import 'package:password_manager/app/core/values/assets.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class LoadingWidget extends StatelessWidget {
   final double? size;
@@ -92,6 +90,23 @@ class PlatformLogo extends StatelessWidget {
       fit: BoxFit.cover,
       height: 50,
       width: 50,
+    );
+  }
+}
+
+class LockIcon extends StatelessWidget {
+  const LockIcon({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Icon(
+        Icons.lock,
+        color: Theme.of(context).accentColor,
+        size: 50,
+      ).py32(),
     );
   }
 }

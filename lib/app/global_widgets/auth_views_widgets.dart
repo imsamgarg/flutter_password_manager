@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:custom_utils/spacing_utils.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:password_manager/app/core/theme/app_theme.dart';
@@ -178,31 +179,6 @@ class KeyboardWidget extends StatelessWidget {
           ),
           verSpacing30,
         ],
-      ),
-    );
-  }
-}
-
-class AuthHeading extends StatelessWidget {
-  const AuthHeading({
-    Key? key,
-    required this.heading,
-  }) : super(key: key);
-
-  final String heading;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, top: 10),
-            child: heading.text.color(ColorTheme.swatch5).size(45).bold.make(),
-          ),
-        ),
       ),
     );
   }

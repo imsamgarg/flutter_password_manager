@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:custom_utils/column_utils.dart';
 import 'package:get/get.dart';
+import 'package:password_manager/app/global_widgets/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:password_manager/app/global_widgets/auth_views_widgets.dart';
@@ -17,14 +18,7 @@ class LoginView extends GetView<LoginController> {
         children: [
           Column(
             children: [
-              // AuthHeading(heading: heading),
-              SafeArea(
-                child: Icon(
-                  Icons.lock,
-                  color: Theme.of(context).accentColor,
-                  size: 50,
-                ).py32(),
-              ),
+              LockIcon(),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,
