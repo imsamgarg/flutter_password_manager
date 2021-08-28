@@ -1,4 +1,3 @@
-import 'package:custom_utils/log_utils.dart';
 import 'package:get/get.dart';
 import 'package:password_manager/app/core/utils/helpers.dart';
 
@@ -6,7 +5,6 @@ import 'package:password_manager/app/core/values/strings.dart';
 import 'package:password_manager/app/data/services/secure_key_service.dart';
 import 'package:password_manager/app/interfaces/auth_interface.dart';
 import 'package:password_manager/app/modules/register/views/set_password_view.dart';
-import 'package:password_manager/app/routes/app_pages.dart';
 
 class RegisterController extends GetxController implements AuthInterface {
   final _number1 = "".obs;
@@ -54,15 +52,12 @@ class RegisterController extends GetxController implements AuthInterface {
 
   @override
   void verifyNumber() async {
-    // Get.to(() => SetPasswordView());
-
     if (!isConfirmActivate) {
       if (number1.length == 6) {
         isConfirmActivate = true;
         update();
       }
     } else {
-      customLog(number1 == number2, name: "Are Same");
       if (number1 == number2) {
         final service = Get.find<SecureKeyService>();
         final bool hasSaved = await service.saveKey(number1, passCode);
