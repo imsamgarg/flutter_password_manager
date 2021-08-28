@@ -26,7 +26,11 @@ class SettingsView extends GetView<SettingsController> {
             ),
             Obx(
               () => _CustomTile(
-                onTap: () {},
+                onTap: () {
+                  return controller.toggleAskForPassSwitch(
+                    !controller.askForPassSwitch,
+                  );
+                },
                 isOneLine: false,
                 trailing: Switch(
                   value: controller.askForPassSwitch,
