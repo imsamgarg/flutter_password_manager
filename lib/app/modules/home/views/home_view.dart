@@ -1,4 +1,5 @@
 import 'package:custom_utils/log_utils.dart';
+import 'package:custom_utils/spacing_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -35,37 +36,55 @@ class HomeView extends GetView<HomeController> {
           future: controller.instance,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              //Todo: implement Error Widget
-              return Center();
+              return Center(
+                child: "Something Went Wrong".text.size(24).make(),
+              );
             }
             if (snapshot.hasData) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SearchWidget(),
-                    ),
-                    GetBuilder(
-                      init: controller,
-                      builder: (HomeController c) {
-                        return Expanded(
+                child: GetBuilder(
+                  init: controller,
+                  builder: (_) {
+                    if (controller.passwords.length == 0)
+                      return Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: controller.onAddTap,
+                              icon: Icon(
+                                Icons.add_circle_outline_rounded,
+                                size: 32,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                            verSpacing16,
+                            "Add Password".text.size(20).make(),
+                          ],
+                        ),
+                      );
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SearchWidget(),
+                        ),
+                        Expanded(
                           child: ListView.builder(
-                            itemCount: c.passwords.length,
+                            itemCount: controller.passwords.length,
                             itemBuilder: (_, i) {
-                              // DismmisableTile(c.passwords[i], i);
-                              if (c.passwords[i].isVisible) {
-                                return PasswordTile(c.passwords[i], i);
+                              if (controller.passwords[i].isVisible) {
+                                return PasswordTile(controller.passwords[i], i);
                               } else {
                                 return SizedBox.shrink();
                               }
                             },
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                        ),
+                      ],
+                    );
+                  },
                 ),
               );
             } else
