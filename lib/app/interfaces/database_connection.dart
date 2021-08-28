@@ -8,11 +8,13 @@ abstract class DatabaseConnection {
   Future<Password> getPass(int id);
   Future<Password> savePass(Password password);
   Future<void> deletePass(Password password);
-  Future<Password> updatePass(Password password);
+  Future<void> updatePass(Password password);
 
   Future<bool> checkIfExists(String website, String mail);
 
   Future<void> updateType(Password password);
 
   Future<void> updateNotes(Password password);
+
+  Future<void> deleteAllPasswords();
 }

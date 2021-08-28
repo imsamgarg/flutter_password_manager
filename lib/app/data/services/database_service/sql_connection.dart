@@ -33,7 +33,7 @@ class SqlConnection implements DatabaseConnection {
 
   @override
   Future<Password> getPass(int id) {
-    // TODO: implement getPass
+    // TODOS: For Future Use
     throw UnimplementedError();
   }
 
@@ -68,12 +68,6 @@ class SqlConnection implements DatabaseConnection {
   }
 
   @override
-  Future<Password> updatePass(Password password) {
-    // TODO: implement updatePass
-    throw UnimplementedError();
-  }
-
-  @override
   Future<bool> checkIfExists(String website, String mail) async {
     const String query =
         "${PassFields.website} = ? COLLATE NOCASE AND ${PassFields.email} = ? COLLATE NOCASE";
@@ -87,20 +81,27 @@ class SqlConnection implements DatabaseConnection {
   }
 
   @override
-  Future<void> updateType(Password password) async {
-    final website = password.website;
-    final mail = password.email;
+  Future<void> updatePass(Password password) async {
+    return await _updateDetails(password);
+  }
 
-    const String query =
-        "${PassFields.website} = ? AND ${PassFields.email} = ?";
-    final _res = await _database.update(passTableName, password.toJson(),
-        where: query, whereArgs: [website, mail]);
-    if (_res == 0)
-      throw DbException("No Password Exists With That Combination");
+  @override
+  Future<void> updateType(Password password) async {
+    return await _updateDetails(password);
   }
 
   @override
   Future<void> updateNotes(Password password) async {
+    return await _updateDetails(password);
+  }
+
+  @override
+  Future<void> deleteAllPasswords() {
+    // TODO: implement deleteAllPasswords
+    throw UnimplementedError();
+  }
+
+  Future<void> _updateDetails(Password password) async {
     final website = password.website;
     final mail = password.email;
 

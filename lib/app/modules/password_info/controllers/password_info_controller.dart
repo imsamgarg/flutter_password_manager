@@ -207,6 +207,7 @@ class PasswordInfoController extends GetxController {
     try {
       final encryService = Get.find<EncryptionService>();
       final sKeyService = Get.find<SecureKeyService>();
+      final dbService = Get.find<DatabaseService>();
       final oldPassword = oldPassController.text;
       final newPassword = newPassController.text;
       final key = await sKeyService.getKey(secureKey);
@@ -218,6 +219,7 @@ class PasswordInfoController extends GetxController {
       final ePass = await encryService.encryptText(newPassword, key);
       passController.text = ePass;
       password.password = ePass;
+      await dbService.connection.updatePass(password);
       oldPassController.clear();
       newPassController.clear();
       Get.back();
