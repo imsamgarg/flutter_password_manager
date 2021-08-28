@@ -22,6 +22,7 @@ class ChangePasswordDialogView extends GetView<PasswordInfoController> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
+              // verSpacing20,
               OldPasswordField(controller: controller),
               verSpacing20,
               NewPasswordField(controller: controller),
@@ -37,7 +38,6 @@ class ChangePasswordDialogView extends GetView<PasswordInfoController> {
                       onTap: controller.changePassword,
                       color: Theme.of(context).buttonColor,
                       isLoading: controller.changePassLoading,
-                      // heading: "Change",
                     );
                   },
                 ),

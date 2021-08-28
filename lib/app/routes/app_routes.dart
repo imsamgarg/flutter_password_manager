@@ -11,6 +11,7 @@ abstract class Routes {
   static const ADD_PASSWORD = _Paths.ADD_PASSWORD;
   static const PASSWORD_INFO = _Paths.PASSWORD_INFO;
   static const SETTINGS = _Paths.SETTINGS;
+  static const BACKUP_RESTORE = _Paths.BACKUP_RESTORE;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const ADD_PASSWORD = '/add-password';
   static const PASSWORD_INFO = '/password-info';
   static const SETTINGS = '/settings';
+  static const BACKUP_RESTORE = '/backup-restore';
 }
