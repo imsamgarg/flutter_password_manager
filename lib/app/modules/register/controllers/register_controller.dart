@@ -82,11 +82,13 @@ class RegisterController extends GetxController implements AuthInterface {
           Get.until((route) => Get.currentRoute == Routes.SETTINGS);
           return successSnackbar("Pass Code Changes Successfully");
         }
-        return Get.to(() => SetPasswordView());
+        Get.to(() => SetPasswordView());
+      } else {
+        errorSnackbar(errorMessage);
       }
-      return errorSnackbar(errorMessage);
+    } else {
+      errorSnackbar("Wrong Pass Code");
     }
-    return errorSnackbar("Wrong Pass Code");
   }
 
   Future<bool> onBackPress() async {
