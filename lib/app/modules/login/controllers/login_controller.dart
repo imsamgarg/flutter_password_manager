@@ -8,6 +8,11 @@ import 'package:password_manager/app/interfaces/auth_interface.dart';
 import 'package:password_manager/app/routes/app_pages.dart';
 
 class LoginController extends GetxController implements AuthInterface {
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   final _number = "".obs;
   String get number => _number.value;
 
@@ -31,7 +36,7 @@ class LoginController extends GetxController implements AuthInterface {
     final service = Get.find<SecureKeyService>();
     final keyMatched = await service.matchKey(number, passCode);
     if (keyMatched) {
-      Get.offAllNamed(Routes.HOME);
+      Get.offAndToNamed(Routes.HOME);
       return;
     }
     Get.rawSnackbar(message: "Wrong Pass Code!!", backgroundColor: Colors.red);

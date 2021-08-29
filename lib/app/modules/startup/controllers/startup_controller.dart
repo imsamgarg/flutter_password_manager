@@ -24,12 +24,12 @@ class StartupController extends GetxController {
 
     if (hasPassCode) {
       if (hasPassword) {
-        return Get.offNamed(Routes.LOGIN);
+        return Get.offAndToNamed(Routes.LOGIN);
       } else {
         return Get.offAll(() => SetPasswordView());
       }
     }
-    return Get.offNamed(Routes.REGISTER);
+    return Get.offAndToNamed(Routes.REGISTER);
   }
 
   Future<void> initDb() async {

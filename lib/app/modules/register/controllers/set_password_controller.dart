@@ -25,7 +25,7 @@ class SetPasswordController extends GetxController {
     final keyService = Get.find<SecureKeyService>();
     final v = await keyService.saveKey(passController.text, passwordKey);
     if (v) {
-      return Get.offAllNamed(Routes.HOME);
+      return Get.offAndToNamed(Routes.HOME);
     }
     errorSnackbar("Error Saving Password");
     isLoading = false;
