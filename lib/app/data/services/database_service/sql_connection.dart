@@ -16,7 +16,7 @@ class SqlConnection implements DatabaseConnection {
       // customLog(_res.first, name: "Data");
       return _res.map((e) => Password.fromJson(e)).toList();
     } else {
-      return List.empty();
+      return List.empty(growable: true);
     }
   }
 
