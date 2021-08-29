@@ -4,6 +4,8 @@ import 'package:password_manager/app/modules/add_password/bindings/add_password_
 import 'package:password_manager/app/modules/add_password/views/add_password_view.dart';
 import 'package:password_manager/app/modules/backup_restore/bindings/backup_restore_binding.dart';
 import 'package:password_manager/app/modules/backup_restore/views/backup_restore_view.dart';
+import 'package:password_manager/app/modules/confirm_password/bindings/confirm_password_binding.dart';
+import 'package:password_manager/app/modules/confirm_password/views/confirm_password_view.dart';
 import 'package:password_manager/app/modules/home/bindings/home_binding.dart';
 import 'package:password_manager/app/modules/home/views/home_view.dart';
 import 'package:password_manager/app/modules/login/bindings/login_binding.dart';
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.BACKUP_RESTORE,
       page: () => BackupRestoreView(),
       binding: BackupRestoreBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRM_PASSWORD,
+      page: () => ConfirmPasswordView(),
+      binding: ConfirmPasswordBinding(),
     ),
   ];
 }
