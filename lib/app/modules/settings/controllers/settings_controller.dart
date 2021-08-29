@@ -4,6 +4,7 @@ import 'package:password_manager/app/core/utils/helpers.dart';
 import 'package:password_manager/app/data/services/database_service/database_service.dart';
 import 'package:password_manager/app/modules/home/controllers/home_controller.dart';
 import 'package:password_manager/app/modules/settings/views/delete_dialog_view.dart';
+import 'package:password_manager/app/routes/app_pages.dart';
 
 class SettingsController extends GetxController {
   late final _askForPassSwitch = false.obs;
@@ -20,7 +21,9 @@ class SettingsController extends GetxController {
     _askForPassSwitch.value = value;
   }
 
-  void changePassCode() {}
+  void changePassCode() {
+    Get.toNamed(Routes.LOGIN, arguments: true);
+  }
 
   void backupAndRestore() {}
 

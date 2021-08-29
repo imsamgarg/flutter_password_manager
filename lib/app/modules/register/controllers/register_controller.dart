@@ -5,8 +5,17 @@ import 'package:password_manager/app/core/values/strings.dart';
 import 'package:password_manager/app/data/services/secure_key_service.dart';
 import 'package:password_manager/app/interfaces/auth_interface.dart';
 import 'package:password_manager/app/modules/register/views/set_password_view.dart';
+import 'package:password_manager/app/routes/app_pages.dart';
 
 class RegisterController extends GetxController implements AuthInterface {
+  late final bool updatePassCode;
+
+  @override
+  void onInit() {
+    updatePassCode = Get.arguments ?? false;
+    super.onInit();
+  }
+
   final _number1 = "".obs;
   final _number2 = "".obs;
 
@@ -24,7 +33,7 @@ class RegisterController extends GetxController implements AuthInterface {
 
   String get heading {
     if (isConfirmActivate) return "Confirm Pin Code";
-    return "Set A 6 Digit Pin Code";
+    return updatePassCode ? "Set A New Pin Code" : "Set A 6 Digit Pin Code";
   }
 
   void set number(String num) {
@@ -66,16 +75,18 @@ class RegisterController extends GetxController implements AuthInterface {
     if (number1 == number2) {
       final service = Get.find<SecureKeyService>();
       final bool hasSaved = await service.saveKey(number1, passCode);
-      final v = await service.saveKey('yes', promptForPassEveryTime);
+      final v = await service.saveKey('no', promptForPassEveryTime);
 
       if (hasSaved) {
-        Get.to(() => SetPasswordView());
-      } else {
-        errorSnackbar(errorMessage);
+        if (updatePassCode) {
+          Get.until((route) => Get.currentRoute == Routes.SETTINGS);
+          return successSnackbar("Pass Code Changes Successfully");
+        }
+        return Get.to(() => SetPasswordView());
       }
-    } else {
-      errorSnackbar("Wrong Pass Code");
+      return errorSnackbar(errorMessage);
     }
+    return errorSnackbar("Wrong Pass Code");
   }
 
   Future<bool> onBackPress() async {

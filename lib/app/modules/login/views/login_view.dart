@@ -26,9 +26,7 @@ class LoginView extends GetView<LoginController> {
                     () {
                       if (controller.number.isEmpty)
                         return Center(
-                          child: "Enter Pin Code"
-                              .text
-                              .bold
+                          child: controller.heading.text.bold
                               .size(18)
                               .color(Theme.of(context).accentColor)
                               .make(),
