@@ -218,6 +218,7 @@ class PasswordInfoController extends GetxController {
       }
       final ePass = await encryService.encryptText(newPassword, key);
       passController.text = ePass;
+      password.modifiedOn = DateTime.now().microsecondsSinceEpoch;
       password.password = ePass;
       await dbService.connection.updatePass(password);
       oldPassController.clear();
