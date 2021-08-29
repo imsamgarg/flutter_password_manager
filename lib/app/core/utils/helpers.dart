@@ -48,3 +48,12 @@ Future<T> showOverlay<T>(Future<T> fun()) async {
   );
   return value;
 }
+
+String? passValidator(String? v, String? v2, int length) {
+  v ??= "";
+  v2 ??= "";
+  if (v.isEmpty) return "Please Enter The Password";
+  if (v.length < length) return "Password Must be $length Chars Long";
+  if (v != v2) return "Passwords Dont Match";
+  return null;
+}

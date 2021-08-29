@@ -2,9 +2,10 @@ import 'package:custom_utils/spacing_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:password_manager/app/core/utils/helpers.dart';
 import 'package:password_manager/app/core/values/sizing.dart';
+import 'package:password_manager/app/global_widgets/auth_views_widgets.dart';
 import 'package:password_manager/app/global_widgets/buttons.dart';
-import 'package:password_manager/app/global_widgets/widgets.dart';
 import 'package:password_manager/app/modules/register/controllers/set_password_controller.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -92,47 +93,6 @@ class SetPasswordView extends StatelessWidget {
               .make(),
           verSpacing20
         ],
-      ),
-    );
-  }
-
-  String? passValidator(String? v, String? v2, int length) {
-    v ??= "";
-    v2 ??= "";
-    if (v.isEmpty) return "Please Enter The Password";
-    if (v.length < length) return "Password Must be $length Chars Long";
-    if (v != v2) return "Passwords Dont Match";
-    return null;
-  }
-}
-
-class PasswordWidget extends StatelessWidget {
-  final String hint;
-  final bool isPassObscure;
-  final TextEditingController controller;
-  final VoidCallback togglePassVisibility;
-  final String? Function(String?)? validator;
-
-  const PasswordWidget({
-    required this.hint,
-    required this.isPassObscure,
-    required this.togglePassVisibility,
-    required this.controller,
-    this.validator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isPassObscure,
-      validator: validator,
-      decoration: InputDecoration(
-        hintText: hint,
-        suffixIcon: ShowPasswordToggle(
-          isHidden: isPassObscure,
-          onTap: togglePassVisibility,
-        ),
       ),
     );
   }

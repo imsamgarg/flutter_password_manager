@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:custom_utils/spacing_utils.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:password_manager/app/global_widgets/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:password_manager/app/core/theme/app_theme.dart';
@@ -179,6 +179,38 @@ class KeyboardWidget extends StatelessWidget {
           ),
           verSpacing30,
         ],
+      ),
+    );
+  }
+}
+
+class PasswordWidget extends StatelessWidget {
+  final String hint;
+  final bool isPassObscure;
+  final TextEditingController controller;
+  final VoidCallback togglePassVisibility;
+  final String? Function(String?)? validator;
+
+  const PasswordWidget({
+    required this.hint,
+    required this.isPassObscure,
+    required this.togglePassVisibility,
+    required this.controller,
+    this.validator,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      obscureText: isPassObscure,
+      validator: validator,
+      decoration: InputDecoration(
+        hintText: hint,
+        suffixIcon: ShowPasswordToggle(
+          isHidden: isPassObscure,
+          onTap: togglePassVisibility,
+        ),
       ),
     );
   }
