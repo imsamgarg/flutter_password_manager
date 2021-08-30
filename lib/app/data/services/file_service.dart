@@ -37,4 +37,10 @@ class FileService extends GetxService {
     final file = await this.readTextFile(path);
     return JsonDecoder().convert(file);
   }
+
+  Future<bool> isFileExists(String path) async {
+    final dir = await getExternalStorageDirectory();
+    final fullPath = join(dir!.path, path);
+    return await File(fullPath).exists();
+  }
 }
