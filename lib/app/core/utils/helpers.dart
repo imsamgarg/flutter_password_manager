@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:password_manager/app/core/values/strings.dart';
+import 'package:password_manager/app/data/services/secure_key_service.dart';
+import 'package:password_manager/app/modules/confirm_password/views/confirm_password_view.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:password_manager/app/core/theme/color_theme.dart';
@@ -56,4 +59,17 @@ String? passValidator(String? v, String? v2, int length) {
   if (v.length < length) return "Password Must be $length Chars Long";
   if (v != v2) return "Passwords Dont Match";
   return null;
+}
+
+Future<bool> askForPassEachTime() async {
+  final res = await Get.find<SecureKeyService>().getKey(promptForPassEveryTime);
+  if (res.isEmpty) {
+    return false;
+  }
+  return res == 'yes' ? true : false;
+}
+
+Future<bool> promptForPass() async {
+  final res = await Get.dialog(ConfirmPasswordView());
+  return (res ?? false);
 }
