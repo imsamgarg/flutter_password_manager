@@ -14,7 +14,7 @@ dependencies:
   sqflite: 2.0.0+3
   path: 1.8.0
   encrypt: 5.0.1
-  flutter_slidable: 0.6.0
+  shared_preferences: 2.0.7
   custom_utils: 
     git: https://github.com/imsmilegarg/custom_utils.git
   flutter: 
