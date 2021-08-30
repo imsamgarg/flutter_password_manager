@@ -60,12 +60,14 @@ class DialogButton extends StatelessWidget {
   final VoidCallback onTap;
   final Color color;
   final String heading;
+  final bool? isLoading;
 
   const DialogButton({
     Key? key,
     required this.onTap,
     required this.color,
     required this.heading,
+    this.isLoading,
   }) : super(key: key);
 
   @override
@@ -77,6 +79,7 @@ class DialogButton extends StatelessWidget {
         heading,
         padding: const EdgeInsets.all(0),
         color: color,
+        isLoading: isLoading,
         onTap: onTap,
       ),
     );
