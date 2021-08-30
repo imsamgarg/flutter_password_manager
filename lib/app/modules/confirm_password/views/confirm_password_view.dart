@@ -18,12 +18,14 @@ class ConfirmPasswordView extends StatelessWidget {
       title: "Enter Password".text.make(),
       content: Form(
         key: controller.formKey,
-        child: PasswordWidget(
-          hint: "Master Password",
-          validator: (v) => passValidator(v, v, 8),
-          isPassObscure: controller.isPassObscure,
-          togglePassVisibility: controller.togglePassVisibility,
-          controller: controller.passController,
+        child: Obx(
+          () => PasswordWidget(
+            hint: "Master Password",
+            validator: (v) => passValidator(v, v, 8),
+            isPassObscure: controller.isPassObscure,
+            togglePassVisibility: controller.togglePassVisibility,
+            controller: controller.passController,
+          ),
         ),
       ),
       actions: [
