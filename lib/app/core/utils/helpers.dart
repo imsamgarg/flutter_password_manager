@@ -61,7 +61,7 @@ String? passValidator(String? v, String? v2, int length) {
   return null;
 }
 
-Future<bool> askForPassEachTime() async {
+Future<bool> checkIfPromptEnabled() async {
   final res = await Get.find<SecureKeyService>().getKey(promptForPassEveryTime);
   if (res.isEmpty) {
     return false;
