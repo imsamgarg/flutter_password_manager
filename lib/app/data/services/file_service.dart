@@ -43,4 +43,9 @@ class FileService extends GetxService {
     final fullPath = join(dir!.path, path);
     return await File(fullPath).exists();
   }
+
+  Future<String> getFullPath(String path) async {
+    final dir = await getExternalStorageDirectory();
+    return join(dir!.path, path);
+  }
 }
