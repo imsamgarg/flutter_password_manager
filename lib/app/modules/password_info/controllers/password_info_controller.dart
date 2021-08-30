@@ -107,7 +107,8 @@ class PasswordInfoController extends GetxController {
     final deleteSelected = (await Get.dialog(DeleteDialogView())) ?? false;
     if (!deleteSelected) return;
     bool deleteSuccessfull = false;
-
+    final res = await promptForPass();
+    if (!res) return;
     deleteSuccessfull = await showOverlay(_deletePass);
 
     if (deleteSuccessfull) {
@@ -135,6 +136,15 @@ class PasswordInfoController extends GetxController {
   void decryptPassword() async {
     _togglePassLoading(true);
     try {
+      final isEnabled = await checkIfPromptEnabled();
+      if (isEnabled) {
+        final isVerified = await promptForPass();
+
+        if (!isVerified) {
+          _togglePassLoading(false);
+          return;
+        }
+      }
       final encryService = Get.find<EncryptionService>();
       final sKeyService = Get.find<SecureKeyService>();
       final key = await sKeyService.getKey(passwordKey);

@@ -37,6 +37,12 @@ class SettingsController extends GetxController {
   }
 
   Future<void> _toggleAskForPassSwitch(bool value) async {
+    if (!value) {
+      final res = await promptForPass();
+      if (!res) {
+        return;
+      }
+    }
     final service = Get.find<SecureKeyService>();
     final v = value ? "yes" : "no";
     final isSuccessfull = await service.saveKey(v, promptForPassEveryTime);
@@ -50,7 +56,9 @@ class SettingsController extends GetxController {
     Get.toNamed(Routes.LOGIN, arguments: true);
   }
 
-  void backupAndRestore() {}
+  void backupAndRestore() {
+    Get.toNamed(Routes.BACKUP_RESTORE);
+  }
 
   void deleteAllPasswords() async {
     final passwords = Get.find<HomeController>().passwords;

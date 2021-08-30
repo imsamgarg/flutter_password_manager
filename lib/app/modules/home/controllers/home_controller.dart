@@ -43,6 +43,12 @@ class HomeController extends GetxController {
 
   void copyPassword(int index) async {
     try {
+      final isEnabled = await checkIfPromptEnabled();
+      if (isEnabled) {
+        final isVerified = await promptForPass();
+        if (!isVerified) return;
+      }
+
       final pass = this.passwords[index].password ?? "";
       final secureKeyService = Get.find<SecureKeyService>();
       final encryptService = Get.find<EncryptionService>();
