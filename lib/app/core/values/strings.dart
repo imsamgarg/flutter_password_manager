@@ -2,6 +2,7 @@ const String passCode = "secure_key";
 const String passwordKey = "ds_pa_s";
 const String promptForPassEveryTime = "promptForPassEveryTime";
 
+const String lastBackup = "last_backup";
 const String passTableName = "password";
 
 abstract class PassFields {
