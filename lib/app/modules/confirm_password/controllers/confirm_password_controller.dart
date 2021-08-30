@@ -8,6 +8,9 @@ class ConfirmPasswordController extends GetxController {
   late final TextEditingController passController = TextEditingController();
   late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  final String wrongPassErrorMsg = "Wrong Password";
+  bool isLoading = false;
+
   final _isPassObscure = true.obs;
   bool get isPassObscure => _isPassObscure.value;
 
@@ -17,12 +20,18 @@ class ConfirmPasswordController extends GetxController {
 
   void onSubmit() async {
     if (!formKey.currentState!.validate()) return;
-
+    toggleLoading();
     final service = Get.find<SecureKeyService>();
     final hasMatched = await service.matchKey(passController.text, passwordKey);
     if (hasMatched) {
       return Get.back(result: true);
     }
-    errorSnackbar("Wrong Pass Code");
+    errorSnackbar(wrongPassErrorMsg);
+    toggleLoading();
+  }
+
+  void toggleLoading() {
+    isLoading = !isLoading;
+    update();
   }
 }
