@@ -33,7 +33,7 @@ class SettingsController extends GetxController {
   }
 
   void toggleAskForPassSwitch(bool value) async {
-    await showOverlay(() => _toggleAskForPassSwitch(value));
+    _toggleAskForPassSwitch(value);
   }
 
   Future<void> _toggleAskForPassSwitch(bool value) async {
