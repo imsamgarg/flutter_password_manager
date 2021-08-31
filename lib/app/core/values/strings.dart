@@ -3,6 +3,7 @@ const String passwordKey = "ds_pa_s";
 const String promptForPassEveryTime = "promptForPassEveryTime";
 
 const String lastBackup = "last_backup";
+const String lastRestore = "last_restore";
 const String passTableName = "password";
 const String backupFileName = "backup.json";
 

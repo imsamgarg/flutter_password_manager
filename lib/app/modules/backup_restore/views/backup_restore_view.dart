@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:password_manager/app/core/theme/app_theme.dart';
 import 'package:password_manager/app/global_widgets/app_bar.dart';
-import 'package:password_manager/app/global_widgets/buttons.dart';
 import 'package:password_manager/app/global_widgets/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../controllers/backup_restore_controller.dart';
+import 'backup_view_view.dart';
+import 'restore_view_view.dart';
 
 class BackupRestoreView extends GetView<BackupRestoreController> {
   @override
@@ -24,15 +25,16 @@ class BackupRestoreView extends GetView<BackupRestoreController> {
           }
           if (snapshot.hasData) {
             return _MainView();
-          } else
+          } else {
             return LoadingWidget();
+          }
         },
       ),
     );
   }
 }
 
-class _MainView extends GetView<BackupRestoreController> {
+class _MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,75 +43,16 @@ class _MainView extends GetView<BackupRestoreController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               verSpacing20,
-              "Backup".text.size(22).bold.make(),
-              verSpacing16,
-              "Total Passwords: ${controller.totalPasswords}"
-                  .text
-                  .bold
-                  .size(16)
-                  .make(),
-              verSpacing8,
-              _BackupTime(controller: controller),
+              BackupView(),
               verSpacing20,
-              GetBuilder(
-                id: controller.backupButtonId,
-                init: controller,
-                builder: (_) {
-                  return CustomButton(
-                    "Backup",
-                    onTap: controller.performBackup,
-                  );
-                },
-              ),
-              verSpacing10,
-              if (controller.showShareFileButton)
-                CustomButton("Share File", onTap: controller.shareFile),
-              verSpacing20,
-              RestoreSection(),
-              verSpacing20,
-              GetBuilder(
-                init: controller,
-                id: controller.restoreButtonId,
-                builder: (_) {
-                  return CustomButton(
-                    "Restore",
-                    onTap: controller.performRestore,
-                  );
-                },
-              ),
-              verSpacing20,
+              RestoreView(),
             ],
           ),
           _Notes(),
         ],
       ),
-    );
-  }
-}
-
-class _BackupTime extends StatelessWidget {
-  const _BackupTime({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
-
-  final BackupRestoreController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder(
-      id: controller.backupTimeId,
-      init: controller,
-      builder: (_) {
-        return "Last Backup: ${controller.lastBackupTime}"
-            .text
-            .bold
-            .size(16)
-            .make();
-      },
     );
   }
 }
@@ -133,12 +76,5 @@ class _Notes extends StatelessWidget {
         verSpacing20,
       ],
     );
-  }
-}
-
-class RestoreSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
