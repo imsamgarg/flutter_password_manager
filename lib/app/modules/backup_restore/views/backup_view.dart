@@ -8,34 +8,43 @@ import 'package:password_manager/app/modules/backup_restore/controllers/backup_r
 class BackupView extends GetView<BackupRestoreController> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        "Backup".text.size(22).bold.make(),
-        verSpacing16,
-        "Total Passwords: ${controller.totalPasswords}"
-            .text
-            .bold
-            .size(16)
-            .make(),
-        verSpacing8,
-        _BackupTime(controller: controller),
-        verSpacing20,
-        GetBuilder(
-          id: controller.backupButtonId,
-          init: controller,
-          builder: (_) {
-            return CustomButton(
-              "Backup",
-              onTap: controller.performBackup,
-            );
-          },
-        ),
-        verSpacing10,
-        if (controller.showShareFileButton)
-          CustomButton("Share File", onTap: controller.shareFile),
-      ],
-    ).box.p16.border(color: Colors.grey.shade700).roundedSM.make();
+    if (context.mq.viewInsets.bottom < 100)
+      return GetBuilder(
+        id: controller.backupSectionId,
+        init: controller,
+        builder: (_) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              "Backup".text.size(22).bold.make(),
+              verSpacing16,
+              "Total Passwords: ${controller.totalPasswords}"
+                  .text
+                  .bold
+                  .size(16)
+                  .make(),
+              verSpacing8,
+              _BackupTime(controller: controller),
+              verSpacing20,
+              GetBuilder(
+                id: controller.backupButtonId,
+                init: controller,
+                builder: (_) {
+                  return CustomButton(
+                    "Backup",
+                    onTap: controller.performBackup,
+                  );
+                },
+              ),
+              verSpacing10,
+              if (controller.showShareFileButton)
+                CustomButton("Share File", onTap: controller.shareFile),
+            ],
+          ).box.p16.border(color: Colors.grey.shade700).roundedSM.make();
+        },
+      );
+    else
+      return Container();
   }
 }
 
