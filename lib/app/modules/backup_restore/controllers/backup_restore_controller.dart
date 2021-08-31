@@ -7,15 +7,9 @@ import 'package:password_manager/app/data/services/file_service.dart';
 import 'package:password_manager/app/data/services/shared_pref_service.dart';
 import 'package:password_manager/app/modules/home/controllers/home_controller.dart';
 
-////TODOs For Future Version;
-// enum BackupOptions {
-//   FullEncrypted,
-//   PasswordsEncrypted,
-//   UnEncrypted,
-// }
-
 class BackupRestoreController extends GetxController {
   late int? _lastBackupTime;
+  late final int? _lastRestoreTime;
   late final int? totalPasswords;
   late final List<Password> _passwords;
   late final bool showBackupButton;
@@ -23,11 +17,14 @@ class BackupRestoreController extends GetxController {
 
   bool backupButtonLoading = false;
   bool restoreButtonLoading = false;
+  bool showRestoreInfo = false;
 
   final String backupButtonId = "Backup Button";
   final String backupTimeId = "Backup Time";
   final String passwordsId = "Total Passwords";
   final String restoreButtonId = "Restore Button";
+  final String restoreTimeId = "Restore Time";
+  final String restoreSectionId = "Restore Section";
 
   final noPassErrorMsg = "You Do Not Have Any Passwords Saved!";
 
@@ -40,10 +37,21 @@ class BackupRestoreController extends GetxController {
     return "Never";
   }
 
+  String get lastRestoreTime {
+    if (_lastRestoreTime != null) {
+      return DateTime.fromMillisecondsSinceEpoch(_lastRestoreTime!).toString();
+    }
+    return "Never";
+  }
+
   Future<bool> initComponents() async {
-    _lastBackupTime = await Get.find<SharedPrefService>().storage.getInt(
-          lastBackup,
-        );
+    final storage = Get.find<SharedPrefService>().storage;
+    _lastBackupTime = await storage.getInt(
+      lastBackup,
+    );
+    _lastRestoreTime = await storage.getInt(
+      lastRestore,
+    );
 
     _passwords = Get.find<HomeController>().passwords;
     showShareFileButton = await Get.find<FileService>().isFileExists(
@@ -88,7 +96,7 @@ class BackupRestoreController extends GetxController {
     final fileService = Get.find<FileService>();
     final file = await fileService.createTextFile(string, backupFileName);
 
-    await Get.find<SharedPrefService>().storage.setInt(lastBackupTime, time);
+    await Get.find<SharedPrefService>().storage.setInt(lastBackup, time);
     _lastBackupTime = time;
     update([backupTimeId]);
     await fileService.shareFile(file.path);
