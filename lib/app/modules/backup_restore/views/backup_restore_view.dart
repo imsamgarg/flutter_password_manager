@@ -7,8 +7,8 @@ import 'package:password_manager/app/global_widgets/app_bar.dart';
 import 'package:password_manager/app/global_widgets/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../controllers/backup_restore_controller.dart';
-import 'backup_view_view.dart';
-import 'restore_view_view.dart';
+import 'backup_view.dart';
+import 'restore_view.dart';
 
 class BackupRestoreView extends GetView<BackupRestoreController> {
   @override
