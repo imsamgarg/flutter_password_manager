@@ -1,3 +1,4 @@
+import 'package:custom_utils/log_utils.dart';
 import 'package:custom_utils/spacing_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -13,30 +14,41 @@ import 'restore_view.dart';
 class BackupRestoreView extends GetView<BackupRestoreController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(heading: "Backup & Restore"),
-      body: FutureBuilder<bool>(
-        future: controller.instance,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: "Something Went Wrong".text.size(24).make(),
-            );
-          }
-          if (snapshot.hasData) {
-            return _MainView();
-          } else {
-            return LoadingWidget();
-          }
-        },
+    final bottom = context.mq.viewInsets.bottom;
+    return GestureDetector(
+      onTap: controller.unfocus,
+      child: Scaffold(
+        appBar: CustomAppBar(heading: "Backup & Restore"),
+        body: FutureBuilder<bool>(
+          future: controller.instance,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: "Something Went Wrong".text.size(24).make(),
+              );
+            }
+            if (snapshot.hasData) {
+              return _MainView(bottom: bottom);
+            } else {
+              return LoadingWidget();
+            }
+          },
+        ),
       ),
     );
   }
 }
 
 class _MainView extends StatelessWidget {
+  final double bottom;
+
+  const _MainView({Key? key, required this.bottom}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    customLog(bottom, name: "ibottom");
+    customLog(context.mq.viewPadding, name: "padd");
+
     return Padding(
       padding: PaddingTheme.sidePaddingM,
       child: Column(
@@ -44,13 +56,13 @@ class _MainView extends StatelessWidget {
         children: [
           Column(
             children: [
-              verSpacing20,
-              BackupView(),
+              if (bottom < 100) verSpacing20,
+              if (bottom < 100) BackupView(),
               verSpacing20,
               RestoreView(),
             ],
           ),
-          _Notes(),
+          if (bottom < 100) _Notes(),
         ],
       ),
     );
