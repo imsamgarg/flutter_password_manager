@@ -187,6 +187,7 @@ class KeyboardWidget extends StatelessWidget {
 class PasswordWidget extends StatelessWidget {
   final String hint;
   final bool isPassObscure;
+  final FocusNode? focusNode;
   final TextEditingController controller;
   final VoidCallback togglePassVisibility;
   final String? Function(String?)? validator;
@@ -197,6 +198,7 @@ class PasswordWidget extends StatelessWidget {
     required this.togglePassVisibility,
     required this.controller,
     this.validator,
+    this.focusNode,
   });
 
   @override
@@ -205,6 +207,7 @@ class PasswordWidget extends StatelessWidget {
       controller: controller,
       obscureText: isPassObscure,
       validator: validator,
+      focusNode: focusNode,
       decoration: InputDecoration(
         hintText: hint,
         suffixIcon: ShowPasswordToggle(
