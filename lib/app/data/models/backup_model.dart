@@ -6,7 +6,7 @@ class Backup {
 
   Backup({this.dateCreated, this.passwords});
 
-  Backup.fromJson(Map<String, dynamic> json) {
+  Backup.fromJson(dynamic json) {
     dateCreated = json['date_created'];
     if (json['passwords'] != null) {
       passwords = <Password>[];
