@@ -29,8 +29,9 @@ class HomeController extends GetxController {
   }
 
   void onSettingsTap() async {
+    int oldPassLength = passwords.length;
     await Get.toNamed(Routes.SETTINGS);
-    if (passwords.length == 0) {
+    if (passwords.length != oldPassLength) {
       update();
     }
   }
