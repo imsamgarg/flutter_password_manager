@@ -50,8 +50,8 @@ class SqlConnection implements DatabaseConnection {
   }
 
   @override
-  Future<Password> savePass(Password password) async {
-    await _database.rawInsert(
+  Future<int> savePass(Password password) async {
+    return await _database.rawInsert(
       Queries.savePassword,
       [
         password.website,
@@ -64,7 +64,6 @@ class SqlConnection implements DatabaseConnection {
         password.modifiedOn,
       ],
     );
-    return password;
   }
 
   @override

@@ -6,7 +6,7 @@ abstract class DatabaseConnection {
   Future<List<Password>> get allPasswords;
 
   Future<Password> getPass(int id);
-  Future<Password> savePass(Password password);
+  Future<int> savePass(Password password);
   Future<void> deletePass(Password password);
   Future<void> updatePass(Password password);
 
