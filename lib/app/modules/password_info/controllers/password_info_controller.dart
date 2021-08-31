@@ -92,9 +92,9 @@ class PasswordInfoController extends GetxController {
     password = cont.passwords[passIndex];
     emailController.text = password.email!;
     passController.text = password.password!;
-    notesController.text = password.notes!;
+    notesController.text = password.notes ?? "";
     websiteController.text = password.website!;
-    final image = password.r!;
+    final image = password.r ?? "";
     if (image.isNotEmpty && AssetsLogos.isLogoExist(image)) {
       customLog(image);
       _selectedIndex.value = AssetsLogos.logos[image]!.index;
