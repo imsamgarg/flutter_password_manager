@@ -25,8 +25,12 @@ dependencies:
 
 dev_dependencies: 
   lints: 1.0.1
+  flutter_native_splash: ^1.2.1
   flutter_test: 
     sdk: flutter
+
+flutter_native_splash:
+  color: "#171718"
 
 flutter: 
   assets: 
