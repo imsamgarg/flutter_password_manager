@@ -56,6 +56,12 @@ class BackupRestoreController extends GetxController {
     _isPassObscure.value = !_isPassObscure.value;
   }
 
+  @override
+  void onClose() {
+    passController.dispose();
+    super.onClose();
+  }
+
   void unfocus() {
     focusNode.unfocus();
   }

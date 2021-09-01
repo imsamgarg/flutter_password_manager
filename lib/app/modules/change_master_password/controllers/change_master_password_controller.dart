@@ -18,6 +18,13 @@ class ChangeMasterPasswordController extends GetxController {
   late final _isOldPassObscure = true.obs;
   late final _isNewPassObscure = true.obs;
   late final _isConfirmNewPassObscure = true.obs;
+  @override
+  void onClose() {
+    newPassController.dispose();
+    confirmNewPassController.dispose();
+    oldPassController.dispose();
+    super.onClose();
+  }
 
   final wrongPassErrorMsg = "Old Password Is Wrong";
   final changePassFailedErrorMsg = "Failed To Set New Password";

@@ -40,6 +40,18 @@ class PasswordInfoController extends GetxController {
   bool isNotesReadOnly = true;
   bool anyUpdations = false;
 
+  @override
+  void onClose() {
+    websiteController.dispose();
+    emailController.dispose();
+    notesController.dispose();
+    passController.dispose();
+
+    oldPassController.dispose();
+    newPassController.dispose();
+    super.onClose();
+  }
+
   final decryptionErrorMsg = "Error In Decrypting Password";
   final notesUpdateErrorMsg = "Error Updating Notes";
   final wrongOldPassErrorMsg = "Incorrect Old Password";

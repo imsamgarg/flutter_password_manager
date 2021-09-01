@@ -32,6 +32,13 @@ class SetPasswordController extends GetxController {
     update();
   }
 
+  @override
+  void onClose() {
+    passController.dispose();
+    confirmPassController.dispose();
+    super.onClose();
+  }
+
   void toggleConfirmPassVisibility() {
     _isConfirmPassObscure.value = !_isConfirmPassObscure.value;
   }

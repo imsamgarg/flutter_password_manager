@@ -27,6 +27,15 @@ class AddPasswordController extends GetxController {
 
   final _isPasswordHidden = true.obs;
 
+  @override
+  void onClose() {
+    websiteController.dispose();
+    emailController.dispose();
+    passController.dispose();
+    notesController.dispose();
+    super.onClose();
+  }
+
   final Rx<int?> _selectedIndex = Rx<int?>(null);
 
   int? get selectedIndex => _selectedIndex.value;

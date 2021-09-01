@@ -18,6 +18,12 @@ class ConfirmPasswordController extends GetxController {
     _isPassObscure.value = !_isPassObscure.value;
   }
 
+  @override
+  void onClose() {
+    passController.dispose();
+    super.onClose();
+  }
+
   void onSubmit() async {
     if (!formKey.currentState!.validate()) return;
     toggleLoading();
