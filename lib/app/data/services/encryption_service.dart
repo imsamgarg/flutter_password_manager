@@ -4,10 +4,6 @@ import 'package:get/get.dart';
 import 'package:password_manager/app/core/values/values.dart';
 
 class EncryptionService extends GetxService {
-  // Future<EncryptionService> init() async {
-  //   return this;
-  // }
-
   String encryptText(String text, String key) {
     ///Key Must Be 32 characters Long
     final pass = _generatekey(key);
@@ -29,14 +25,20 @@ class EncryptionService extends GetxService {
     return pass;
   }
 
-  String decryptText(String password, String key) {
+  String decryptText(String text, String key) {
     // /Key Must Be 32 characters Long
     final pass = _generatekey(key);
     final _generatedKey = Key.fromUtf8(pass);
-    final _encryptedPass = Encrypted.fromBase64(password);
+    final _encryptedPass = Encrypted.fromBase64(text);
     final _iv = IV.fromLength(16);
     final _encrypter = Encrypter(AES(_generatedKey));
 
     return _encrypter.decrypt(_encryptedPass, iv: _iv);
+  }
+
+  String decryptNEncrypt(String text, String oldKey, [String? newKey]) {
+    newKey ??= oldKey;
+    final decrypted = this.decryptText(text, oldKey);
+    return this.encryptText(decrypted, newKey);
   }
 }
