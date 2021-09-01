@@ -57,7 +57,8 @@ class ChangeMasterPasswordController extends GetxController {
     final dbService = Get.find<DatabaseService>();
     try {
       Get.find<HomeController>().passwords.forEach((e) async {
-        e.password = encryService.decryptNEncrypt(e.password!, oldPass);
+        e.password =
+            encryService.decryptNEncrypt(e.password!, oldPass, newPass);
         await dbService.connection.updatePass(e);
       });
     } on Exception catch (e, s) {
