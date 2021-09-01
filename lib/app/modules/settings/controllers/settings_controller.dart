@@ -95,4 +95,8 @@ class SettingsController extends GetxController {
       errorSnackbar(deletingPassErrorMessage);
     }
   }
+
+  void changeMasterPassword() async {
+    Get.toNamed(Routes.CHANGE_MASTER_PASSWORD);
+  }
 }
