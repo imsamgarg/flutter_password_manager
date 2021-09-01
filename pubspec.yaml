@@ -34,7 +34,7 @@ flutter_native_splash:
   android: true
   web: false
   ios: false
-  image: assets/logoNew.png
+  image: assets/resizedLogo.png
 
 flutter: 
   assets: 
