@@ -24,6 +24,10 @@ class SettingsView extends GetView<SettingsController> {
               onTap: controller.changePassCode,
               title: "Change Pass Code",
             ),
+            _CustomTile(
+              onTap: controller.changeMasterPassword,
+              title: "Change Master Password",
+            ),
             Obx(
               () => _CustomTile(
                 onTap: () {
