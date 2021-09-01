@@ -31,7 +31,7 @@ dev_dependencies:
 
 flutter_native_splash:
   color: "#171718"
-  image: assets/round.png
+  image: assets/logoNew.png
 
 flutter: 
   assets: 
