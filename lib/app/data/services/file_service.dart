@@ -15,7 +15,7 @@ class FileService extends GetxService {
   Future<PlatformFile?> pickFile() async {
     final pickedFile = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ["backup"],
+      allowedExtensions: ["json"],
     );
     if (pickedFile != null) {
       return pickedFile.files.first;

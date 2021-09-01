@@ -5,7 +5,7 @@ const String promptForPassEveryTime = "promptForPassEveryTime";
 const String lastBackup = "last_backup";
 const String lastRestore = "last_restore";
 const String passTableName = "password";
-const String backupFileName = "pass.backup";
+const String backupFileName = "pass.json";
 
 abstract class PassFields {
   static const String email = "email";
