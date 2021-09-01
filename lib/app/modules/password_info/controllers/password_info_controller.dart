@@ -107,8 +107,8 @@ class PasswordInfoController extends GetxController {
     final deleteSelected = (await Get.dialog(DeleteDialogView())) ?? false;
     if (!deleteSelected) return;
     bool deleteSuccessfull = false;
-    final res = await promptForPass();
-    if (!res) return;
+    // final res = await promptForPass();
+    // if (!res) return;
     deleteSuccessfull = await showOverlay(_deletePass);
 
     if (deleteSuccessfull) {
