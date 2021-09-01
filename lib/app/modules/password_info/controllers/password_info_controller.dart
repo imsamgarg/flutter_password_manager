@@ -49,6 +49,9 @@ class PasswordInfoController extends GetxController {
 
     oldPassController.dispose();
     newPassController.dispose();
+
+    passFocusNode.dispose();
+    noteFocusNode.dispose();
     super.onClose();
   }
 

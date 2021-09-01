@@ -59,6 +59,7 @@ class BackupRestoreController extends GetxController {
   @override
   void onClose() {
     passController.dispose();
+    focusNode.dispose();
     super.onClose();
   }
 

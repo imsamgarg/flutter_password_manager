@@ -19,6 +19,12 @@ class HomeController extends GetxController {
   late FocusNode focusNode = FocusNode();
   late int index;
 
+  @override
+  void onClose() {
+    focusNode.dispose();
+    super.onClose();
+  }
+
   void onAddTap() {
     Get.toNamed(Routes.ADD_PASSWORD)?.then((value) {
       if (value != null) {
