@@ -65,11 +65,10 @@ class SettingsController extends GetxController {
     if (passwords.isEmpty) {
       return errorSnackbar("You Do Not Have Any Password Saved");
     }
-    Get.dialog(DeleteDialogView());
+    await Get.dialog(DeleteDialogView());
   }
 
   void confirmDeletion() async {
-    // await showOverlay(_deleteAllPasswords);
     _deleteAllPasswords();
   }
 
@@ -85,12 +84,14 @@ class SettingsController extends GetxController {
 
       final service = Get.find<DatabaseService>();
       await service.connection.deleteAllPasswords();
-      successSnackbar("Passwords Deleted Successfully");
-
       //clearing passwords from memory
       Get.find<HomeController>().passwords.clear();
+      Get.back();
+      successSnackbar("Passwords Deleted Successfully");
+      return;
     } on Exception catch (e, s) {
       customLog("Deleting Password", name: "Error", error: e, stackTrace: s);
+      Get.back();
       errorSnackbar(deletingPassErrorMessage);
     }
   }

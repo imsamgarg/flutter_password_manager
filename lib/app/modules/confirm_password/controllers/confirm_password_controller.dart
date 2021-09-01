@@ -23,11 +23,12 @@ class ConfirmPasswordController extends GetxController {
     toggleLoading();
     final service = Get.find<SecureKeyService>();
     final hasMatched = await service.matchKey(passController.text, passwordKey);
+    toggleLoading();
     if (hasMatched) {
-      return Get.back(result: true);
+      Get.back(result: true);
+      return;
     }
     errorSnackbar(wrongPassErrorMsg);
-    toggleLoading();
   }
 
   void toggleLoading() {
