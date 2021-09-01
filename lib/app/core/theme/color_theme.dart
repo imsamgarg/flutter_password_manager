@@ -14,7 +14,7 @@ class ColorTheme {
   static const Color swatch7 = Color(0xffa9513b);
   static const Color swatch8 = Color(0xff3f58c4);
 
-  static const Color accentColor = swatch7;
+  static const Color accentColor = swatch2;
   static const Color primaryColor = swatch2;
   static const Color backgroungColor = swatch1;
 
@@ -51,6 +51,8 @@ class ColorTheme {
   static const Color inputBgColor = Color(0xFF1A2327);
 
   static const Color dialogBgColor = backgroungColor;
+
+  static Color numberKeyColor = Color(0xFF212224);
 
   static Color get successColor {
     bool _isDark = Get.isDarkMode;

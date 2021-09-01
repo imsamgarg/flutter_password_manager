@@ -26,7 +26,7 @@ class NumberWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: color ?? ColorTheme.inputBgColor,
+      color: color ?? ColorTheme.numberKeyColor,
       borderRadius: BorderTheme.borderRadL,
       child: InkWell(
         borderRadius: BorderTheme.borderRadL,
