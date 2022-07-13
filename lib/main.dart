@@ -8,7 +8,7 @@ import 'app/routes/app_pages.dart';
 void main() {
   runApp(
     GetMaterialApp(
-      title: "Application",
+      title: "Password Manager",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       theme: dartTheme,
